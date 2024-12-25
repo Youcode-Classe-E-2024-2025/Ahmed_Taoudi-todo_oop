@@ -1,4 +1,2 @@
 <?php
-
-
-echo "taskflow";
+ require_once("views/index.view.php");
