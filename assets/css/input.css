@@ -23,7 +23,10 @@ body {
 
 .card {
     @apply flex-1 max-w-72  min-w-72 h-fit flex flex-col mt-10 gap-4  px-6 py-4 border-2 rounded-lg shadow-lg bg-white dark:bg-gray-800 dark:border-gray-700 ;
+    animation: slideIn 0.5s ease-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .card_head {
     @apply flex justify-between items-center mb-4 border-b-2;
 }
@@ -41,6 +44,12 @@ h4 {
 
 .counter {
     @apply text-xs rounded-md py-1 px-3 text-white bg-gray-600 dark:bg-gray-700;
+    transition: all 0.3s ease;
+}
+
+.counter.update {
+    animation: bounce 0.5s ease;
+    background-color: #3b82f6;
 }
 
 .list-container {
@@ -51,9 +60,23 @@ h4 {
     @apply flex justify-between items-center text-xs text-gray-500 dark:text-gray-400;
 }
 
-li {
-    @apply border flex flex-col min-h-16 gap-4 p-4 overflow-x-hidden transform hover:scale-105 duration-300;
+/* Status-based colors */
+#todo_list .task-item {
+    @apply border-red-500;
 }
+
+#in_progress_list .task-item {
+    @apply border-yellow-400;
+}
+
+#done_list .task-item {
+    @apply border-green-500;
+}
+
+li {
+    @apply border-2 flex flex-col min-h-16 gap-4 p-4 overflow-x-hidden transform hover:scale-105 duration-300 cursor-grab;
+}
+
 .fa-solid{
     @apply cursor-pointer ;
 }
@@ -62,7 +85,15 @@ li {
  }
 .description {
     @apply text-nowrap overflow-hidden;
+    transition: all 0.3s ease;
+    max-height: 0;
 }
+
+.description.show {
+    max-height: 100px;
+    margin-top: 8px;
+}
+
 .p1_info {
     @apply border-4 border-red-600
 }
@@ -72,15 +103,109 @@ li {
 .p3_info {
     @apply border-4 border-green-400
 }
-/* Priority Level Borders */
+/* Priority Level Borders - Default (Todo) */
 .priority-P1 {
-    border-left: 4px solid #ff4d4f; /* (P1) */
+    border-left: 4px solid #ff4d4f; /* Red (P1) */
 }
 
 .priority-P2 {
-    border-left: 4px solid #ffa940; /* (P2) */
+    border-left: 4px solid #ffa940; /* Orange (P2) */
 }
 
 .priority-P3 {
-    border-left: 4px solid #22ff00; /* (P3) */
+    border-left: 4px solid #22ff00; /* Green (P3) */
+}
+
+/* Priority Colors for In Progress */
+#in_progress_list .priority-P1 {
+    border-left: 4px solid #faad14; /* Yellow */
+}
+
+#in_progress_list .priority-P2 {
+    border-left: 4px solid #fadb14; /* Light Yellow */
+}
+
+#in_progress_list .priority-P3 {
+    border-left: 4px solid #fff566; /* Very Light Yellow */
+}
+
+/* Priority Colors for Done */
+#done_list .priority-P1 {
+    border-left: 4px solid #52c41a; /* Green */
+}
+
+#done_list .priority-P2 {
+    border-left: 4px solid #73d13d; /* Light Green */
+}
+
+#done_list .priority-P3 {
+    border-left: 4px solid #95de64; /* Very Light Green */
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+    }
+}
+
+/* Card Animations */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+/* Task Item Animations */
+.task-item {
+    @apply border-2 flex flex-col min-h-16 gap-4 p-4 overflow-x-hidden cursor-grab;
+    animation: slideIn 0.3s ease-out;
+    transition: all 0.3s ease;
+}
+
+.task-item:hover {
+    transform: scale(1.02) translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Dragging Animations */
+.task-item.dragging {
+    @apply opacity-50 scale-105 rotate-1 cursor-grabbing shadow-xl;
+    animation: glow 1.5s infinite;
+    border: 2px dashed #3b82f6 !important;
+    background: #f0f9ff !important;
+}
+
+.task-item.drag-over {
+    @apply border-blue-500 bg-blue-50;
+    animation: bounce 0.5s ease infinite;
+    border-style: dashed !important;
+}
+
+.card.drag-over {
+    @apply border-blue-500 border-2 bg-blue-50;
+    transform: scale(1.02);
+    transition: all 0.2s ease;
 }
