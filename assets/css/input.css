@@ -62,15 +62,28 @@ h4 {
 
 /* Status-based colors */
 #todo_list .task-item {
-    @apply border-red-500;
+    @apply border-red-500 border-l-0;
 }
 
 #in_progress_list .task-item {
-    @apply border-yellow-400;
+    @apply border-yellow-400 border-l-0;
 }
 
 #done_list .task-item {
-    @apply border-green-500;
+    @apply border-green-500 border-l-0;
+}
+
+/* Priority Level Borders */
+.priority-P1 {
+    border-left: 4px solid #dc2626 !important; /* Bright Red */
+}
+
+.priority-P2 {
+    border-left: 4px solid #f59e0b !important; /* Bright Orange */
+}
+
+.priority-P3 {
+    border-left: 4px solid #10b981 !important; /* Bright Green */
 }
 
 li {
@@ -103,54 +116,16 @@ li {
 .p3_info {
     @apply border-4 border-green-400
 }
-/* Priority Level Borders - Default (Todo) */
-.priority-P1 {
-    border-left: 4px solid #ff4d4f; /* Red (P1) */
-}
-
-.priority-P2 {
-    border-left: 4px solid #ffa940; /* Orange (P2) */
-}
-
-.priority-P3 {
-    border-left: 4px solid #22ff00; /* Green (P3) */
-}
-
-/* Priority Colors for In Progress */
-#in_progress_list .priority-P1 {
-    border-left: 4px solid #faad14; /* Yellow */
-}
-
-#in_progress_list .priority-P2 {
-    border-left: 4px solid #fadb14; /* Light Yellow */
-}
-
-#in_progress_list .priority-P3 {
-    border-left: 4px solid #fff566; /* Very Light Yellow */
-}
-
-/* Priority Colors for Done */
-#done_list .priority-P1 {
-    border-left: 4px solid #52c41a; /* Green */
-}
-
-#done_list .priority-P2 {
-    border-left: 4px solid #73d13d; /* Light Green */
-}
-
-#done_list .priority-P3 {
-    border-left: 4px solid #95de64; /* Very Light Green */
-}
 
 /* Animations */
 @keyframes slideIn {
     from {
-        transform: translateY(-20px);
         opacity: 0;
+        transform: translateY(-10px);
     }
     to {
-        transform: translateY(0);
         opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -182,26 +157,28 @@ li {
 .task-item {
     @apply border-2 flex flex-col min-h-16 gap-4 p-4 overflow-x-hidden cursor-grab;
     animation: slideIn 0.3s ease-out;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    transform-origin: center center;
 }
 
 .task-item:hover {
-    transform: scale(1.02) translateY(-2px);
+    transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 /* Dragging Animations */
 .task-item.dragging {
-    @apply opacity-50 scale-105 rotate-1 cursor-grabbing shadow-xl;
-    animation: glow 1.5s infinite;
+    @apply opacity-70 shadow-xl;
     border: 2px dashed #3b82f6 !important;
     background: #f0f9ff !important;
+    transform: scale(1.02);
 }
 
 .task-item.drag-over {
     @apply border-blue-500 bg-blue-50;
-    animation: bounce 0.5s ease infinite;
     border-style: dashed !important;
+    transform: translateY(8px);
+    transition: transform 0.2s ease;
 }
 
 .card.drag-over {

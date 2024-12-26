@@ -79,9 +79,9 @@ cancel_add.addEventListener('click', () => {
 // Function to create a new task item with status dropdown
 function createTaskItem(task) {
     const newItem = document.createElement("li");
-    newItem.classList.add("task-item");
+    newItem.classList.add("task-item", `priority-${task.priority}`);
     newItem.setAttribute("id", `task-${task.id}`);
-    newItem.setAttribute("draggable", `true`);
+    newItem.setAttribute("draggable", "true");
     
     // Add drag event listeners
     addDragListeners(newItem);
@@ -91,6 +91,10 @@ function createTaskItem(task) {
         <p class="description hidden">${task.description}</p>
         <div class="app_footer">
             <p id="date">${task.dueDate}</p>
+            <span class="del_edi">
+                <i class="fa-solid fa-trash" style="color: #000000;"></i>
+                <i data-id="${task.id}" class="fa-solid fa-pen-to-square" style="color: #000000;"></i>
+            </span>
         </div>
     `;
 
@@ -184,7 +188,29 @@ function handleDragLeave(e) {
     }
 }
 
-// Function to handle drop
+// Function to get priority weight (for sorting)
+function getPriorityWeight(priority) {
+    switch(priority) {
+        case 'P1': return 1;
+        case 'P2': return 2;
+        case 'P3': return 3;
+        default: return 999; // For any unknown priority
+    }
+}
+
+// Function to sort tasks by priority
+function sortTasksByPriority(listElement) {
+    const tasks = Array.from(listElement.children);
+    tasks.sort((a, b) => {
+        const priorityA = a.classList.toString().match(/priority-P(\d)/)?.[1] || '999';
+        const priorityB = b.classList.toString().match(/priority-P(\d)/)?.[1] || '999';
+        return priorityA - priorityB;
+    });
+    
+    tasks.forEach(task => listElement.appendChild(task));
+}
+
+// Function to handle drop with sorting
 function handleDrop(e) {
     e.preventDefault();
     const draggedTaskId = e.dataTransfer.getData('text/plain');
@@ -227,21 +253,11 @@ function handleDrop(e) {
                 // Update task color based on new status
                 updateTaskColor(draggedElement, newStatus);
                 
-                // If dropping on another task, insert before or after it
-                if (dropTask && !dropTask.classList.contains('dragging')) {
-                    const rect = dropTask.getBoundingClientRect();
-                    const dropY = e.clientY;
-                    const dropMiddle = rect.top + rect.height / 2;
-                    
-                    if (dropY < dropMiddle) {
-                        dropTask.parentNode.insertBefore(draggedElement, dropTask);
-                    } else {
-                        dropTask.parentNode.insertBefore(draggedElement, dropTask.nextSibling);
-                    }
-                } else {
-                    // If not dropping on a task, append to the list
-                    targetList.appendChild(draggedElement);
-                }
+                // Add to target list
+                targetList.appendChild(draggedElement);
+                
+                // Sort the target list by priority
+                sortTasksByPriority(targetList);
                 
                 // Add slide-in animation
                 draggedElement.style.animation = 'slideIn 0.3s ease-out';
@@ -304,17 +320,31 @@ function moveTaskToCorrectList(listItem, task) {
     }
 }
 
+// Initialize tasks with sorting
+function initializeTasks() {
+    const todoList = document.getElementById('todo_list');
+    const inProgressList = document.getElementById('in_progress_list');
+    const doneList = document.getElementById('done_list');
+
+    // Sort each list
+    sortTasksByPriority(todoList);
+    sortTasksByPriority(inProgressList);
+    sortTasksByPriority(doneList);
+}
+
 // Add tasks to DOM initially
 tasks.forEach(task => {
     const newItem = createTaskItem(task);
     if (task.status === "Todo") {
-        todoList.appendChild(newItem);
+        document.getElementById('todo_list').appendChild(newItem);
     } else if (task.status === "In progress") {
-        progressList.appendChild(newItem);
+        document.getElementById('in_progress_list').appendChild(newItem);
     } else if (task.status === "Done") {
-        doneList.appendChild(newItem);
+        document.getElementById('done_list').appendChild(newItem);
     }
 });
+
+initializeTasks();
 updateCounters();
 
 // Event delegation for delete functionality
@@ -359,7 +389,6 @@ document.getElementById("submit_btn").addEventListener("click", function(event) 
     } else if (status === "Done") {
         doneList.appendChild(newItem);
     }
-    renderSortedTasks();
     updateCounters();
     alert("Task added successfully!");
     document.getElementById("modalForm").reset();
@@ -406,7 +435,6 @@ document.getElementById('submit_btn_update').addEventListener('click', function(
 
         const updatedItem = createTaskItem(taskToUpdate);
         document.querySelector(`[data-id="${itemId}"]`).closest('li').replaceWith(updatedItem);
-        renderSortedTasks();
         updateCounters();
     }
 
@@ -475,43 +503,3 @@ document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('dragleave', handleDragLeave);
     card.addEventListener('drop', handleDrop);
 });
-
-// Minor improvements and organization for clarity and performance
-
-// Sort tasks by priority and due date (ascending)
-function sortTasks() {
-    tasks.sort((a, b) => {
-        if (a.priority !== b.priority) {
-            return a.priority.localeCompare(b.priority);
-        }
-        const dateA = new Date(a.dueDate);
-        const dateB = new Date(b.dueDate);
-        return dateA - dateB;
-    });
-}
-
-// Render tasks in sorted order
-function renderSortedTasks() {
-    // Clear all task lists
-    todoList.innerHTML = '';
-    progressList.innerHTML = '';
-    doneList.innerHTML = '';
-
-    // Sort and append tasks in the correct order
-    sortTasks();
-    tasks.forEach(task => {
-        const newItem = createTaskItem(task);
-        if (task.status === "Todo") {
-            todoList.appendChild(newItem);
-        } else if (task.status === "In progress") {
-            progressList.appendChild(newItem);
-        } else if (task.status === "Done") {
-            doneList.appendChild(newItem);
-        }
-    });
-
-    updateCounters(); // Update counters after sorting
-}
-
-// Initialize by rendering sorted tasks
-renderSortedTasks();
