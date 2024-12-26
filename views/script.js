@@ -50,7 +50,6 @@ const tasks = [
     }
 ];
 
-
 // Select DOM elements
 const addTask = document.querySelector('#add_one');
 const container = document.querySelector('.container');
@@ -80,71 +79,229 @@ cancel_add.addEventListener('click', () => {
 // Function to create a new task item with status dropdown
 function createTaskItem(task) {
     const newItem = document.createElement("li");
-    newItem.classList.add("task-item", `priority-${task.priority}`);
+    newItem.classList.add("task-item");
     newItem.setAttribute("id", `task-${task.id}`);
+    newItem.setAttribute("draggable", `true`);
+    
+    // Add drag event listeners
+    addDragListeners(newItem);
+
     newItem.innerHTML = `
         <div class="flex justify-between"> <h4>${task.title}</h4> <i data-id="${task.id}" class="fa-solid fa-info" style="color: #0041b3;"></i> </div> 
         <p class="description hidden">${task.description}</p>
         <div class="app_footer">
             <p id="date">${task.dueDate}</p>
-            <select class="status-dropdown">
-                <option value="Todo" ${task.status === "Todo" ? "selected" : ""}>Todo</option>
-                <option value="In progress" ${task.status === "In progress" ? "selected" : ""}>In progress</option>
-                <option value="Done" ${task.status === "Done" ? "selected" : ""}>Done</option>
-            </select>
-            <span class="del_edi">
-                <i class="fa-solid fa-trash" style="color: #000000;"></i>
-                <i data-id="${task.id}" class="fa-solid fa-pen-to-square" style="color: #000000;"></i>
-            </span>
         </div>
     `;
+
+    // Set initial color based on task status
+    if (task.status === "Todo") {
+        newItem.style.borderColor = "#ef4444"; // Red
+    } else if (task.status === "In progress") {
+        newItem.style.borderColor = "#facc15"; // Yellow
+    } else if (task.status === "Done") {
+        newItem.style.borderColor = "#22c55e"; // Green
+    }
+
     addHoverEffect(newItem);
-    addStatusChangeHandler(newItem, task); // Add status change handler
     return newItem;
 }
 
-// Function to add status change handler
-function addStatusChangeHandler(listItem, task) {
-    const statusDropdown = listItem.querySelector(".status-dropdown");
-    statusDropdown.addEventListener("change", () => {
-        task.status = statusDropdown.value;
-        moveTaskToCorrectList(listItem, task);
-        updateCounters(); // Update the counters after moving the task
-    });
+// Function to add drag listeners to task items
+function addDragListeners(taskItem) {
+    taskItem.addEventListener('dragover', handleDragOver);
+    taskItem.addEventListener('dragleave', handleDragLeave);
+    taskItem.addEventListener('dragstart', handleDragStart);
+    taskItem.addEventListener('dragend', handleDragEnd);
 }
-
-// Function to move task to the correct list based on status
-function moveTaskToCorrectList(listItem, task) {
-    // Remove task from current list
-    listItem.remove();
-
-    // Add task to the correct list based on its new status
-    if (task.status === "Todo") {
-        todoList.appendChild(listItem);
-    } else if (task.status === "In progress") {
-        progressList.appendChild(listItem);
-    } else if (task.status === "Done") {
-        doneList.appendChild(listItem);
-    }
-}
-
-
 
 // Add hover effects
 function addHoverEffect(listItem) {
+    const description = listItem.querySelector('.description');
+    
     listItem.addEventListener('mouseover', () => {
-        listItem.querySelector('.description').classList.remove('hidden');
+        description.classList.remove('hidden');
+        description.classList.add('show');
     });
+    
     listItem.addEventListener('mouseout', () => {
-        listItem.querySelector('.description').classList.add('hidden');
+        description.classList.remove('show');
+        description.classList.add('hidden');
     });
+}
+
+// Function to handle drag start
+function handleDragStart(e) {
+    e.target.classList.add('dragging');
+    e.dataTransfer.setData('text/plain', e.target.id);
+    e.dataTransfer.effectAllowed = 'move';
+}
+
+// Function to handle drag end
+function handleDragEnd(e) {
+    e.target.classList.remove('dragging');
+    // Remove drag-over class from all cards and tasks
+    document.querySelectorAll('.card, .task-item').forEach(element => {
+        element.classList.remove('drag-over');
+    });
+}
+
+// Function to handle drag over
+function handleDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    
+    const taskItem = e.target.closest('.task-item');
+    const card = e.target.closest('.card');
+
+    // Remove drag-over from all elements first
+    document.querySelectorAll('.card, .task-item').forEach(element => {
+        if (element !== taskItem && element !== card) {
+            element.classList.remove('drag-over');
+        }
+    });
+
+    // If hovering over a task item that's not being dragged
+    if (taskItem && !taskItem.classList.contains('dragging')) {
+        taskItem.classList.add('drag-over');
+    }
+    // If hovering over a card
+    else if (card) {
+        card.classList.add('drag-over');
+    }
+}
+
+// Function to handle drag leave
+function handleDragLeave(e) {
+    const taskItem = e.target.closest('.task-item');
+    const card = e.target.closest('.card');
+
+    if (taskItem) {
+        taskItem.classList.remove('drag-over');
+    }
+    if (card && !card.contains(e.relatedTarget)) {
+        card.classList.remove('drag-over');
+    }
+}
+
+// Function to handle drop
+function handleDrop(e) {
+    e.preventDefault();
+    const draggedTaskId = e.dataTransfer.getData('text/plain');
+    const draggedElement = document.getElementById(draggedTaskId);
+    const dropZone = e.target.closest('.card');
+    const dropTask = e.target.closest('.task-item');
+    
+    if (dropZone && draggedElement) {
+        const taskId = parseInt(draggedTaskId.split('-')[1]);
+        const task = tasks.find(t => t.id === taskId);
+        
+        if (task) {
+            const todoList = dropZone.querySelector('#todo_list');
+            const inProgressList = dropZone.querySelector('#in_progress_list');
+            const doneList = dropZone.querySelector('#done_list');
+            let targetList;
+            let newStatus;
+            
+            // Determine which list we're dropping into
+            if (todoList && (dropZone.querySelector('#todo_list') === e.target || dropZone.contains(todoList))) {
+                targetList = todoList;
+                task.status = 'Todo';
+                newStatus = 'Todo';
+            } else if (inProgressList && (dropZone.querySelector('#in_progress_list') === e.target || dropZone.contains(inProgressList))) {
+                targetList = inProgressList;
+                task.status = 'In progress';
+                newStatus = 'In progress';
+            } else if (doneList && (dropZone.querySelector('#done_list') === e.target || dropZone.contains(doneList))) {
+                targetList = doneList;
+                task.status = 'Done';
+                newStatus = 'Done';
+            }
+
+            if (targetList) {
+                // Reset any existing animations
+                draggedElement.style.animation = 'none';
+                draggedElement.offsetHeight; // Trigger reflow
+                draggedElement.style.animation = null;
+                
+                // Update task color based on new status
+                updateTaskColor(draggedElement, newStatus);
+                
+                // If dropping on another task, insert before or after it
+                if (dropTask && !dropTask.classList.contains('dragging')) {
+                    const rect = dropTask.getBoundingClientRect();
+                    const dropY = e.clientY;
+                    const dropMiddle = rect.top + rect.height / 2;
+                    
+                    if (dropY < dropMiddle) {
+                        dropTask.parentNode.insertBefore(draggedElement, dropTask);
+                    } else {
+                        dropTask.parentNode.insertBefore(draggedElement, dropTask.nextSibling);
+                    }
+                } else {
+                    // If not dropping on a task, append to the list
+                    targetList.appendChild(draggedElement);
+                }
+                
+                // Add slide-in animation
+                draggedElement.style.animation = 'slideIn 0.3s ease-out';
+                
+                updateCounters();
+            }
+        }
+    }
+
+    // Remove all drag-over classes
+    document.querySelectorAll('.card, .task-item').forEach(element => {
+        element.classList.remove('drag-over');
+    });
+}
+
+// Function to update task color based on its status
+function updateTaskColor(taskElement, status) {
+    if (status === "Todo") {
+        taskElement.style.borderColor = "#ef4444"; // Red
+    } else if (status === "In progress") {
+        taskElement.style.borderColor = "#facc15"; // Yellow
+    } else if (status === "Done") {
+        taskElement.style.borderColor = "#22c55e"; // Green
+    }
 }
 
 // Update counters
 function updateCounters() {
-    todoCounter.textContent = todoList.querySelectorAll('li').length;
-    progressCounter.textContent = progressList.querySelectorAll('li').length;
-    doneCounter.textContent = doneList.querySelectorAll('li').length;
+    const todoCounter = document.getElementById('todo_counter');
+    const progressCounter = document.getElementById('progress_counter');
+    const doneCounter = document.getElementById('done_counter');
+    
+    const todoCount = document.getElementById('todo_list').children.length;
+    const progressCount = document.getElementById('in_progress_list').children.length;
+    const doneCount = document.getElementById('done_list').children.length;
+    
+    // Animate counter updates
+    [todoCounter, progressCounter, doneCounter].forEach(counter => {
+        counter.classList.add('update');
+        setTimeout(() => counter.classList.remove('update'), 500);
+    });
+
+    todoCounter.textContent = todoCount;
+    progressCounter.textContent = progressCount;
+    doneCounter.textContent = doneCount;
+}
+
+// Function to move task to the correct list based on status
+function moveTaskToCorrectList(listItem, task) {
+    const todoList = document.getElementById('todo_list');
+    const inProgressList = document.getElementById('in_progress_list');
+    const doneList = document.getElementById('done_list');
+
+    if (task.status === "Todo") {
+        todoList.appendChild(listItem);
+    } else if (task.status === "In progress") {
+        inProgressList.appendChild(listItem);
+    } else if (task.status === "Done") {
+        doneList.appendChild(listItem);
+    }
 }
 
 // Add tasks to DOM initially
@@ -266,7 +423,6 @@ document.getElementById('cancel_btn_update').addEventListener('click', () => {
     container.classList.remove('blur');
 });
 
-
 // task information
 const infoModal = document.querySelector('.information_modal');
 const titleInfo = document.getElementById('title_info');
@@ -312,6 +468,14 @@ xMark.addEventListener('click', () => {
 
        taskInfo.classList.remove('p1_info', 'p2_info', 'p3_info');
 });
+
+// Add drop zone event listeners to the cards and tasks
+document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('dragover', handleDragOver);
+    card.addEventListener('dragleave', handleDragLeave);
+    card.addEventListener('drop', handleDrop);
+});
+
 // Minor improvements and organization for clarity and performance
 
 // Sort tasks by priority and due date (ascending)
