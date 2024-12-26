@@ -1,5 +1,4 @@
 <?php
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,8 +19,9 @@
     <title>to do list</title>
 </head>
 
-<body class="  min-h-screen pt-2 bg-no-repeat bg-cover"
+<body class="min-h-screen pt-2 bg-no-repeat bg-cover"
     style="background-image: url('assets/images/wallpaperflare.com_wallpaper\ \(10\).jpg')">
+    <canvas id="bgCanvas"></canvas>
     <!-- container -->
     <!-- blur -->
     <div class="container h-full bg-center bg-cover flex flex-col justify-center  ">
@@ -31,7 +31,6 @@
                 class="add_btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                 id="add_one">add task +</button>
             <!-- search bar -->
-
             <form class="w-[250px] max-w-md mx-auto">
                 <label for="default-search"
                     class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -64,7 +63,7 @@
                     <span class="counter" id="todo_counter">2</span>
                 </div>
                 <ul id="todo_list" class="list-container">
-                   
+
                 </ul>
             </div>
             <!-- in progress card -->
@@ -74,7 +73,7 @@
                     <span class="counter" id="progress_counter">3</span>
                 </div>
                 <ul id="in_progress_list" class="list-container">
-                   
+
                 </ul>
             </div>
             <!-- done_card -->
@@ -84,14 +83,14 @@
                     <span class="counter" id="done_counter">1</span>
                 </div>
                 <ul id="done_list" class="list-container">
-                    
+
                 </ul>
             </div>
         </div>
 
     </div>
     <!-- modal task start -->
-    <div  class="modal absolute left-0 top-0 items-center justify-center w-full h-full hidden">
+    <div class="modal absolute left-0 top-0 items-center justify-center w-full h-full hidden">
         <form id="modalForm" class="conf-modal min-w-96 bg-white p-4 rounded-sm md:p-5">
             <div class="grid gap-4 mb-4 grid-cols-2">
                 <div class="col-span-2">
@@ -144,36 +143,35 @@
             </div>
             <div class="footer_drop flex justify-between">
                 <button type="button"
-                id="submit_btn"
-                class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                        clip-rule="evenodd"></path>
-                </svg>
-                Add new Task
-            </button>
-            <!-- cencel btn -->
-            <button type="button"
-            class="text-white inline-flex items-center bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-            id="cancel_btn">
-            
-            </svg>
-            cancel
-        </button>
+                    id="submit_btn"
+                    class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    Add new Task
+                </button>
+                <!-- cencel btn -->
+                <button type="button"
+                    class="text-white inline-flex items-center bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                    id="cancel_btn">
+
+                    cancel
+                </button>
             </div>
-            
+
         </form>
     </div>
     <!-- modal end -->
-     <!-- update task -->
-     <div  class="task-modal hidden absolute  left-0 top-0 items-center justify-center w-full h-full ">
-        <form id="modalForm_update" class="conf-modal w-96 bg-white p-4 rounded-sm md:p-5 ">
+    <!-- update task -->
+    <div class="task-modal hidden absolute left-0 top-0 items-center justify-center w-full h-full">
+        <form id="modalForm_update" class="conf-modal w-96 bg-white p-4 rounded-sm md:p-5">
             <div class="grid gap-4 mb-4 grid-cols-2">
                 <div class="col-span-2">
                     <h1 class="text-center font-bold text-blue-900">Update Task</h1>
-                    
+
                 </div>
                 <div class="col-span-2 sm:col-span-1">
                     <label for="priority_update"
@@ -186,7 +184,7 @@
                         <option value="P3">P3</option>
                     </select>
                 </div>
-               
+
                 <div class="col-span-1">
                     <label for="due_date_update" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">due
                         date</label>
@@ -208,46 +206,47 @@
             <div class="footer_drop flex justify-between">
                 <!-- update_btn -->
                 <button type="button"
-                id="submit_btn_update"
-                class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                        clip-rule="evenodd"></path>
-                </svg>
-                update Task
-            </button>
-            <!-- cencel btn -->
-            <button type="button"
-            class="text-white inline-flex items-center bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-            id="cancel_btn_update">
-            
-            </svg>
-            cancel
-        </button>
+                    id="submit_btn_update"
+                    class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    update Task
+                </button>
+                <!-- cencel btn -->
+                <button type="button"
+                    class="text-white inline-flex items-center bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                    id="cancel_btn_update">
+
+                    cancel
+                </button>
             </div>
-            
+
         </form>
     </div>
     <!-- end update task -->
 
     <!-- task information -->
-     <div class="information_modal absolute hidden items-center justify-center h-full w-full top-0">
-<div class="info_task flex flex-col  max-w-96 p-6 min-h-fit bg-white  rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-    <i class="fa-solid fa-xmark self-end" style="color: #000000;"></i>
-        <h5 id="title_info" class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-    <p id="description_info" class="mb-3 font-normal text-gray-700 dark:text-gray-400 flex-wrap">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-    <div class="info_footer flex justify-between">
-        <p id="date_info" class="mb-3 font-normal text-gray-400 text-sm ">03/13/2024</p>
-        <p id="status_info" class="mb-3 font-bold text-black-400 text-sm ">Done</p>
-    </div>
-   
-   
-</div>
+    <div class="information_modal absolute hidden items-center justify-center h-full w-full top-0">
+        <div class="info_task flex flex-col max-w-96 p-6 min-h-fit bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <i class="fa-solid fa-xmark self-end" style="color: #000000;"></i>
+            <h5 id="title_info" class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy
+                technology acquisitions 2021</h5>
+            <p id="description_info" class="mb-3 font-normal text-gray-700 dark:text-gray-400 flex-wrap">Here are the
+                biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+            <div class="info_footer flex justify-between">
+                <p id="date_info" class="mb-3 font-normal text-gray-400 text-sm">03/13/2024</p>
+                <p id="status_info" class="mb-3 font-bold text-black-400 text-sm">Done</p>
+            </div>
 
-     </div>
+        </div>
+
+    </div>
     <script src="views/script.js"></script>
+    <script src="views/canvas.js"></script>
 </body>
 
 </html>
