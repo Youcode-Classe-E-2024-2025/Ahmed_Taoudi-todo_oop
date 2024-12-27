@@ -20,7 +20,7 @@ create table if not exists user (
 create table if not exists task (
     id int AUTO_INCREMENT PRIMARY KEY ,
     taskname VARCHAR(50) not null ,
-    taskdesc VARCHAR(50) not null ,
+    taskdesc text not null ,
     taskstatus ENUM('TODO', 'DOING', 'DONE') NOT NULL DEFAULT 'TODO' ,
     taskstart timestamp   ,
     taskfin timestamp   

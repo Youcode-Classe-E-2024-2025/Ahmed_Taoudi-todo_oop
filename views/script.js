@@ -1,53 +1,53 @@
 // Data
 const tasks = [
-    {
-        id: 0,
-        title: "amrabet",
-        priority: "P3",
-        status: "Todo",
-        dueDate: "2024-04-12", 
-        description: "this is the description"
-    },
-    {
-        id: 1,
-        title: "web",
-        priority: "P2",
-        status: "Todo",
-        dueDate: "2024-12-24",
-        description: "this is the description"
-    },
-    {
-        id: 2,
-        title: "loop",
-        priority: "P1",
-        status: "In progress",
-        dueDate: "2020-03-03", 
-        description: "this is the description"
-    },
-    {
-        id: 3,
-        title: "task brook",
-        priority: "P3",
-        status: "In progress",
-        dueDate: "2024-03-13", 
-        description: "this is the description"
-    },
-    {
-        id: 4,
-        title: "gym",
-        priority: "P2",
-        status: "In progress",
-        dueDate: "2024-07-05",
-        description: "this is the description"
-    },
-    {
-        id: 5,
-        title: "change icons",
-        priority: "P2",
-        status: "Done",
-        dueDate: "2028-01-23",
-        description: "this is the description this is the description this is the description this is the description this is the descriptionthis is the description"
-    }
+    // {
+    //     id: 0,
+    //     title: "amrabet",
+    //     priority: "P3",
+    //     status: "Todo",
+    //     dueDate: "2024-04-12", 
+    //     description: "this is the description"
+    // },
+    // {
+    //     id: 1,
+    //     title: "web",
+    //     priority: "P2",
+    //     status: "Todo",
+    //     dueDate: "2024-12-24",
+    //     description: "this is the description"
+    // },
+    // {
+    //     id: 2,
+    //     title: "loop",
+    //     priority: "P1",
+    //     status: "In progress",
+    //     dueDate: "2020-03-03", 
+    //     description: "this is the description"
+    // },
+    // {
+    //     id: 3,
+    //     title: "task brook",
+    //     priority: "P3",
+    //     status: "In progress",
+    //     dueDate: "2024-03-13", 
+    //     description: "this is the description"
+    // },
+    // {
+    //     id: 4,
+    //     title: "gym",
+    //     priority: "P2",
+    //     status: "In progress",
+    //     dueDate: "2024-07-05",
+    //     description: "this is the description"
+    // },
+    // {
+    //     id: 5,
+    //     title: "change icons",
+    //     priority: "P2",
+    //     status: "Done",
+    //     dueDate: "2028-01-23",
+    //     description: "this is the description this is the description this is the description this is the description this is the descriptionthis is the description"
+    // }
 ];
 
 // Select DOM elements
