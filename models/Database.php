@@ -21,7 +21,7 @@ class Database
 
             $this->connection = new PDO($this->dsn, USER, PASSWORD);
 
-            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION,PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
 
             if ($e->getCode() == 1049) {
