@@ -19,40 +19,53 @@
     <title>to do list</title>
 </head>
 
-<body class="min-h-screen pt-2 bg-no-repeat bg-cover"
-    style="background-image: url('assets/images/wallpaperflare.com_wallpaper\ \(10\).jpg')">
+<body class="min-h-screen pt-2 bg-no-repeat bg-cover">
     <canvas id="bgCanvas"></canvas>
     <!-- container -->
     <!-- blur -->
     <div class="container h-full bg-center bg-cover flex flex-col justify-center  ">
         <!-- header of the app -->
-        <div class="app_row flex-wrap flex max-sm:justify-center gap-3 m">
-            <button
-                class="add_btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                id="add_one">add task +</button>
-            <!-- search bar -->
-            <form class="w-[250px] max-w-md mx-auto">
-                <label for="default-search"
-                    class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                        </svg>
-                    </div>
-                    <input type="search" id="default-search"
-                        class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Search task" required />
-                    <button type="button"
-                        class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-                </div>
-            </form>
+        <div class="app_row flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-white rounded-lg shadow-md">
+            <div class="flex flex-wrap gap-3 items-center">
+                <button
+                    class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300"
+                    id="add_one">
+                    <i class="fas fa-plus"></i> Add Task
+                </button>
+            </div>
 
-            <button
-                class="add_btn bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-                id="add_mult">add multiple +</button>
+            <!-- Search Bar with Enhanced Design -->
+            <div class="flex-grow max-w-md mx-auto">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                    <input 
+                        type="search" 
+                        id="default-search"
+                        placeholder="Search tasks..." 
+                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                    />
+                    <button 
+                        type="button" 
+                        class="absolute right-1 top-1/2 -translate-y-1/2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors duration-300"
+                    >
+                        Search
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Stats or Additional Actions -->
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-lg">
+                    <i class="fas fa-tasks text-gray-600"></i>
+                    <span class="text-sm text-gray-700">Total Tasks: <span class="font-bold">6</span></span>
+                </div>
+                <div class="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-lg">
+                    <i class="fas fa-chart-pie text-gray-600"></i>
+                    <span class="text-sm text-gray-700">Completed: <span class="font-bold text-green-600">3</span></span>
+                </div>
+            </div>
         </div>
         <div class="cards flex-wrap flex  gap-12 px-12 justify-evenly h-full">
             <!-- modal -->
