@@ -22,6 +22,8 @@ $router = new Router();
 
 require "routes.php";
 
+$aa = 44 ;
+
 // dd($uri);
 
 $method = isset($_POST['_method']) ? $_POST['_method'] : $_SERVER['REQUEST_METHOD'];

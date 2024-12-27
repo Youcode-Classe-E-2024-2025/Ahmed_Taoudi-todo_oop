@@ -74,7 +74,22 @@
                     <span class="counter" id="todo_counter">2</span>
                 </div>
                 <ul id="todo_list" class="list-container">
-
+                    <?php foreach($allTask as $task) :?>
+                       <?php  if($task['taskstatus'] == 'TODO'): ?>
+                    <li draggable="true" id="task-" class="task-item priority-<?= $task['taskpriority']?>">
+                        <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> <i data-id="<?=$task['id']?>" class="fa-solid fa-info" style="color: #0041b3;"></i> 
+                        </div> 
+                        <p class="description hidden"><?=$task['taskdesc']?></p>
+                        <div class="app_footer">
+                            <p id="date"><?=$task['taskfin']?></p>
+                            <span class="del_edi">
+                                <i class="fa-solid fa-trash" style="color: #000000;"></i>
+                                <i data-id="${task.id}" class="fa-solid fa-pen-to-square" style="color: #000000;"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <?php endif ?>
+                    <?php endforeach ;?>
                 </ul>
             </div>
             <!-- in progress card -->
@@ -84,7 +99,22 @@
                     <span class="counter" id="progress_counter">3</span>
                 </div>
                 <ul id="in_progress_list" class="list-container">
-
+                <?php foreach($allTask as $task) :?>
+                       <?php  if($task['taskstatus'] == 'DOING'): ?>
+                    <li draggable="true" id="task-" class="task-item priority-<?= $task['taskpriority']  ?>">
+                        <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> <i data-id="${task.id}" class="fa-solid fa-info" style="color: #0041b3;"></i> 
+                        </div> 
+                        <p class="description hidden">${task.description}</p>
+                        <div class="app_footer">
+                            <p id="date">${task.dueDate}</p>
+                            <span class="del_edi">
+                                <i class="fa-solid fa-trash" style="color: #000000;"></i>
+                                <i data-id="${task.id}" class="fa-solid fa-pen-to-square" style="color: #000000;"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <?php endif ?>
+                    <?php endforeach ;?>
                 </ul>
             </div>
             <!-- done_card -->
@@ -94,7 +124,22 @@
                     <span class="counter" id="done_counter">1</span>
                 </div>
                 <ul id="done_list" class="list-container">
-
+                <?php foreach($allTask as $task) :?>
+                       <?php  if($task['taskstatus'] == 'DONE'): ?>
+                    <li draggable="true" id="task-" class="task-item priority-<?= $task['taskpriority']  ?>">
+                        <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> <i data-id="${task.id}" class="fa-solid fa-info" style="color: #0041b3;"></i> 
+                        </div> 
+                        <p class="description hidden">${task.description}</p>
+                        <div class="app_footer">
+                            <p id="date">${task.dueDate}</p>
+                            <span class="del_edi">
+                                <i class="fa-solid fa-trash" style="color: #000000;"></i>
+                                <i data-id="${task.id}" class="fa-solid fa-pen-to-square" style="color: #000000;"></i>
+                            </span>
+                        </div>
+                    </li>
+                    <?php endif ?>
+                    <?php endforeach ;?>
                 </ul>
             </div>
         </div>
