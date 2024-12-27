@@ -2,7 +2,7 @@
 
 class Task
 {
-    protected $id ;
+    protected $id;
     protected $taskname;
     protected $taskdesc;
     protected $taskstatus;
@@ -19,16 +19,44 @@ class Task
         $this->setTaskStart($fin);
         $this->setTaskFin($start);
     }
-    public static function getAllTask($db){
-return $db->query("select * from task ")->fetchAll();
+    public static function getAllTask($db)
+    {
+        return $db->query("select * from task ")->fetchAll();
     }
 
-    public static function getTaskById($id,$db){
-        return $db->query("select * from task where id = :id ",['id'=>$id])->fetch();
+    public static function getTaskById($id, $db)
+    {
+        return $db->query("select * from task where id = :id ", ['id' => $id])->fetch();
     }
-
-    public static function updateTask($id,$task,$db){
-        // $db->
+    // update
+    public static function updateTask($id, $task, $db)
+    {
+        $db->query(
+            "update task set taskname= :taskname ,taskdesc = :desc ,taskstatus = :status ,taskpriority = :priority ,taskfin = :fin  where id =:id",
+            [
+                "taskname" => $task->getTaskName(),
+                "desc" => $task->getTaskDesc(),
+                "status" => $task->getTaskStatus(),
+                "priority" => $task->getTaskPriority(),
+                "fin" => $task->getTaskFin(),
+                "id" => $id
+            ]
+        );
+    }
+    // create
+    public function createTask($db)
+    {
+        $db->query(
+            "insert into task(taskname ,taskdesc ,taskstatus ,taskpriority ,taskfin ,taskstart ) values (:name ,:desc, :status , :priority ,:fin ,:start )",
+            [
+                "name" => $this->getTaskName(),
+                "desc" => $this->getTaskDesc(),
+                "status" => $this->getTaskStatus(),
+                "priority" => $this->getTaskPriority(),
+                "fin" => $this->getTaskFin(),
+                "start" => $this->getTaskStart()
+            ]
+        );
     }
     // SET
     public function setTaskName($name)
@@ -81,7 +109,4 @@ return $db->query("select * from task ")->fetchAll();
     {
         return $this->taskfin;
     }
-
-
-
 }
