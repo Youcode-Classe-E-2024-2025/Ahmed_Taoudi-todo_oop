@@ -2,6 +2,7 @@
 
 class Task
 {
+    protected $id ;
     protected $taskname;
     protected $taskdesc;
     protected $taskstatus;
@@ -17,6 +18,17 @@ class Task
         $this->setTaskPriority($priority);
         $this->setTaskStart($fin);
         $this->setTaskFin($start);
+    }
+    public static function getAllTask($db){
+return $db->query("select * from task ")->fetchAll();
+    }
+
+    public static function getTaskById($id,$db){
+        return $db->query("select * from task where id = :id ",['id'=>$id])->fetch();
+    }
+
+    public static function updateTask($id,$task,$db){
+        // $db->
     }
     // SET
     public function setTaskName($name)
@@ -43,7 +55,7 @@ class Task
     {
         $this->taskfin = $fin;
     }
-    
+
     // GET
     public function getTaskName()
     {
@@ -69,4 +81,7 @@ class Task
     {
         return $this->taskfin;
     }
+
+
+
 }
