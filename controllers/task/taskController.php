@@ -2,7 +2,12 @@
 
 class TaskController
 {
-    // Show all tasks
+    private $conn ;
+    public function __construct($db)
+    {
+        $this->conn = $db ;
+    }
+    // Show all tasks (GET)
     public function show()
     {
        

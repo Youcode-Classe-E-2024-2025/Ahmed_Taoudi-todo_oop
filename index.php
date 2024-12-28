@@ -18,7 +18,7 @@ if(isset($_POST['createdb'])){
     
 }
 
-$router = new Router();
+$router = new Router($db);
 
 require "routes.php";
 
