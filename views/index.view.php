@@ -104,9 +104,9 @@
                     <li draggable="true" id="task-" class="task-item priority-<?= $task['taskpriority']  ?>">
                         <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> <i data-id="${task.id}" class="fa-solid fa-info" style="color: #0041b3;"></i> 
                         </div> 
-                        <p class="description hidden">${task.description}</p>
+                        <p class="description hidden"><?=$task['taskdesc']?></p>
                         <div class="app_footer">
-                            <p id="date">${task.dueDate}</p>
+                            <p id="date"><?=$task['taskfin']?></p>
                             <span class="del_edi">
                                 <i class="fa-solid fa-trash" style="color: #000000;"></i>
                                 <i data-id="${task.id}" class="fa-solid fa-pen-to-square" style="color: #000000;"></i>
@@ -129,9 +129,9 @@
                     <li draggable="true" id="task-" class="task-item priority-<?= $task['taskpriority']  ?>">
                         <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> <i data-id="${task.id}" class="fa-solid fa-info" style="color: #0041b3;"></i> 
                         </div> 
-                        <p class="description hidden">${task.description}</p>
+                        <p class="description hidden"><?=$task['taskdesc']?></p>
                         <div class="app_footer">
-                            <p id="date">${task.dueDate}</p>
+                            <p id="date"><?=$task['taskfin']?></p>
                             <span class="del_edi">
                                 <i class="fa-solid fa-trash" style="color: #000000;"></i>
                                 <i data-id="${task.id}" class="fa-solid fa-pen-to-square" style="color: #000000;"></i>
