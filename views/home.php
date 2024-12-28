@@ -20,7 +20,7 @@
                 <h1 class="text-2xl font-bold text-gray-800">TaskMaster</h1>
             </div>
             <div>
-                <a href="/login" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+                <a href="views/auth.php" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
                     Login
                 </a>
             </div>
@@ -37,7 +37,7 @@
                     and stay focused on what matters most.
                 </p>
                 <div class="flex space-x-4">
-                    <a href="/register" class="px-8 py-3 gradient-bg text-white rounded-lg text-lg font-semibold 
+                    <a href="views/auth.php" class="px-8 py-3 gradient-bg text-white rounded-lg text-lg font-semibold 
                         hover:scale-105 transform transition duration-300 shadow-lg hover:shadow-xl flex items-center">
                         <i class="fas fa-rocket mr-3"></i>
                         Get Started
