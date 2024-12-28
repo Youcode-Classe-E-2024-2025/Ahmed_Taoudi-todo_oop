@@ -1,14 +1,26 @@
 <?php 
 
-class User{
+class User
+{
  protected $username; 
  protected $useremail; 
  protected $userpassword; 
 
-public function __construct($username,$useremail,$userpassword){
+   public function __construct($username, $useremail, $userpassword)
+   {
 $this->setName($username);
 $this->setEmail($useremail);
 $this->setPassword($userpassword);
+}
+
+   public static function isIndatabase($email, $db)
+   {
+
+      $result = $db->query(
+         'select * from user where useremail = :email',
+         ['email'=>$email]
+      );
+      return $result->rowCount();
 }
 
  //  SET
@@ -32,5 +44,4 @@ $this->setPassword($userpassword);
   public function getPassword(){
     return $this->userpassword;
   }
-
 }

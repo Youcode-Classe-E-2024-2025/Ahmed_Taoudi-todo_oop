@@ -65,7 +65,8 @@
                 >
                     <h2 class="text-3xl font-bold text-center text-blue-900 mb-6">Welcome Back</h2>
                     <div class="bg-red-100 hidden border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                       
+                       <!-- CSRF -->
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>"> 
                     </div>
                     <div class="space-y-4">
                         <div class="relative">
@@ -112,6 +113,7 @@
 
                 <!-- Register Form -->
                 <form 
+                    action="/signup"
                     x-show="!isLogin" 
                     method="POST" 
                     class="p-8 space-y-6"
@@ -119,6 +121,8 @@
                     x-transition:enter-start="opacity-0 scale-90"
                     x-transition:enter-end="opacity-100 scale-100"
                 >
+                     <!-- CSRF -->
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>"> 
                     <h2 class="text-3xl font-bold text-center text-blue-900 mb-6">Create Account</h2>
                     <div class="bg-red-100 hidden border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                       

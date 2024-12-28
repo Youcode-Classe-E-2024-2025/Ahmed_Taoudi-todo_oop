@@ -21,6 +21,7 @@
     <canvas id="bgCanvas"></canvas>
     <!-- container -->
     <!-- blur -->
+    <?php require_once "views/partials/navbar.php" ;?>
     <div class="container h-full bg-center bg-cover flex flex-col justify-center  ">
         <!-- header of the app -->
         <div class="app_row flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-white rounded-lg shadow-md">

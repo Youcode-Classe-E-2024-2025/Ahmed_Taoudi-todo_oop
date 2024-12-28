@@ -6,15 +6,15 @@ $router->get('/','controllers/pages/index.ctl.php','Index');
 $router->get('/profile','controllers/user/UserController.php','UserController');
 $router->get('/task','controllers/task/taskController.php','TaskController');
 
-// $router->get('/login','controllers/connection/login.ctl.php');:
-// $router->get('/signup','controllers/connection/signup.ctl.php');
+$router->get('/login','controllers/user/UserController.php','UserController');
+$router->get('/signup','controllers/user/UserController.php','UserController');
 
 //  POST
 
 $router->post('/task','controllers/task/taskController.php','TaskController');
 
-// $router->post('/login','controllers/login.ctl.php');
-// $router->post('/signup','controllers/signup.ctl.php','UserController');
+$router->post('/login','controllers/user/UserController.php','UserController');
+$router->post('/signup','controllers/user/UserController.php','UserController');
 
 //  UPDATE
 

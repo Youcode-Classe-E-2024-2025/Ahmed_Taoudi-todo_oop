@@ -341,16 +341,16 @@ function initializeTasks() {
 }
 
 // Add tasks to DOM initially
-tasks.forEach(task => {
-    const newItem = createTaskItem(task);
-    if (task.status === "Todo") {
-        document.getElementById('todo_list').appendChild(newItem);
-    } else if (task.status === "In progress") {
-        document.getElementById('in_progress_list').appendChild(newItem);
-    } else if (task.status === "Done") {
-        document.getElementById('done_list').appendChild(newItem);
-    }
-});
+// tasks.forEach(task => {
+//     const newItem = createTaskItem(task);
+//     if (task.status === "Todo") {
+//         document.getElementById('todo_list').appendChild(newItem);
+//     } else if (task.status === "In progress") {
+//         document.getElementById('in_progress_list').appendChild(newItem);
+//     } else if (task.status === "Done") {
+//         document.getElementById('done_list').appendChild(newItem);
+//     }
+// });
 
 initializeTasks();
 updateCounters();
@@ -408,54 +408,54 @@ updateCounters();
 // });
 
 // Handle task edit
-let itemId;
-container.addEventListener('click', function(event) {
-    if (event.target.classList.contains('fa-pen-to-square')) {
-        updateModal.classList.remove('hidden');
-        updateModal.classList.add('flex');
-        container.classList.add('blur');
+// let itemId;
+// container.addEventListener('click', function(event) {
+//     if (event.target.classList.contains('fa-pen-to-square')) {
+//         updateModal.classList.remove('hidden');
+//         updateModal.classList.add('flex');
+//         container.classList.add('blur');
         
-        itemId = parseInt(event.target.dataset.id, 10);
-        const taskToEdit = tasks.find(task => task.id === itemId);
+//         itemId = parseInt(event.target.dataset.id, 10);
+//         const taskToEdit = tasks.find(task => task.id === itemId);
         
-        if (taskToEdit) {
-            document.getElementById("description_update").value = taskToEdit.description;
-            document.getElementById("priority_update").value = taskToEdit.priority;
-            document.getElementById("due_date_update").value = taskToEdit.dueDate;
-            document.getElementById("type_update").value = taskToEdit.type;
-        }
-    }
-});
+//         if (taskToEdit) {
+//             document.getElementById("description_update").value = taskToEdit.description;
+//             document.getElementById("priority_update").value = taskToEdit.priority;
+//             document.getElementById("due_date_update").value = taskToEdit.dueDate;
+//             document.getElementById("type_update").value = taskToEdit.type;
+//         }
+//     }
+// });
 
 // Update task
-document.getElementById('submit_btn_update').addEventListener('click', function() {
-    const description = document.getElementById("description_update").value.trim();
-    const priority = document.getElementById("priority_update").value;
-    const dueDate = document.getElementById("due_date_update").value.trim();
-    const type = document.getElementById("type_update").value;
+// document.getElementById('submit_btn_update').addEventListener('click', function() {
+//     const description = document.getElementById("description_update").value.trim();
+//     const priority = document.getElementById("priority_update").value;
+//     const dueDate = document.getElementById("due_date_update").value.trim();
+//     const type = document.getElementById("type_update").value;
 
-    if (!description || !priority || !dueDate || !type) {
-        alert('Please fill out all fields');
-        return;
-    }
+//     if (!description || !priority || !dueDate || !type) {
+//         alert('Please fill out all fields');
+//         return;
+//     }
 
-    const taskToUpdate = tasks.find(task => task.id === itemId);
-    if (taskToUpdate) {
-        taskToUpdate.description = description;
-        taskToUpdate.priority = priority;
-        taskToUpdate.dueDate = dueDate;
-        taskToUpdate.type = type;
+//     const taskToUpdate = tasks.find(task => task.id === itemId);
+//     if (taskToUpdate) {
+//         taskToUpdate.description = description;
+//         taskToUpdate.priority = priority;
+//         taskToUpdate.dueDate = dueDate;
+//         taskToUpdate.type = type;
 
-        const updatedItem = createTaskItem(taskToUpdate);
-        document.querySelector(`[data-id="${itemId}"]`).closest('li').replaceWith(updatedItem);
-        updateCounters();
-    }
+//         const updatedItem = createTaskItem(taskToUpdate);
+//         document.querySelector(`[data-id="${itemId}"]`).closest('li').replaceWith(updatedItem);
+//         updateCounters();
+//     }
 
-    updateModal.classList.add('hidden');
-    updateModal.classList.remove('flex');
-    container.classList.remove('blur');
+//     updateModal.classList.add('hidden');
+//     updateModal.classList.remove('flex');
+//     container.classList.remove('blur');
     
-});
+// });
 
 // Hide update modal
 document.getElementById('cancel_btn_update').addEventListener('click', () => {
@@ -465,50 +465,50 @@ document.getElementById('cancel_btn_update').addEventListener('click', () => {
 });
 
 // task information
-const infoModal = document.querySelector('.information_modal');
-const titleInfo = document.getElementById('title_info');
-const descriptionInfo = document.getElementById('description_info');
-const dateInfo = document.getElementById('date_info');
-const statusInfo = document.getElementById('status_info');
-const taskInfo = document.querySelector('.info_task')
-container.addEventListener('click' , function(event) {
-    if(event.target.classList.contains('fa-info')){
-       infoModal.classList.remove('hidden');
-       infoModal.classList.add('flex');
-       container.classList.add('blur');
+// const infoModal = document.querySelector('.information_modal');
+// const titleInfo = document.getElementById('title_info');
+// const descriptionInfo = document.getElementById('description_info');
+// const dateInfo = document.getElementById('date_info');
+// const statusInfo = document.getElementById('status_info');
+// const taskInfo = document.querySelector('.info_task')
+// container.addEventListener('click' , function(event) {
+//     if(event.target.classList.contains('fa-info')){
+//        infoModal.classList.remove('hidden');
+//        infoModal.classList.add('flex');
+//        container.classList.add('blur');
 
-       itemId = parseInt(event.target.dataset.id, 10);
-        const taskToShow = tasks.find(task => task.id === itemId);
+//        itemId = parseInt(event.target.dataset.id, 10);
+//         const taskToShow = tasks.find(task => task.id === itemId);
       
-        if(taskToShow){
-            titleInfo.textContent = taskToShow.title;
-            descriptionInfo.textContent = taskToShow.description;
-            dateInfo.textContent = taskToShow.dueDate;
-            statusInfo.textContent = taskToShow.status;
+//         if(taskToShow){
+//             titleInfo.textContent = taskToShow.title;
+//             descriptionInfo.textContent = taskToShow.description;
+//             dateInfo.textContent = taskToShow.dueDate;
+//             statusInfo.textContent = taskToShow.status;
 
            
-        }
-        if(taskToShow.priority === "P1"){
-            taskInfo.classList.add('p1_info')
-          }
-          else if(taskToShow.priority === "P2"){
-            taskInfo.classList.add('p2_info')
-          }
-          else{
-            taskInfo.classList.add('p3_info')
-          }
+//         }
+//         // if(taskToShow.priority === "P1"){
+//         //     taskInfo.classList.add('p1_info')
+//         //   }
+//         //   else if(taskToShow.priority === "P2"){
+//         //     taskInfo.classList.add('p2_info')
+//         //   }
+//         //   else{
+//         //     taskInfo.classList.add('p3_info')
+//         //   }
 
 
-    }
-});
-const xMark = document.querySelector('.fa-xmark');
-xMark.addEventListener('click', () => {
-    infoModal.classList.add('hidden');
-       infoModal.classList.remove('flex');
-       container.classList.remove('blur');
+//     }
+// });
+// const xMark = document.querySelector('.fa-xmark');
+// xMark.addEventListener('click', () => {
+//     infoModal.classList.add('hidden');
+//        infoModal.classList.remove('flex');
+//        container.classList.remove('blur');
 
-       taskInfo.classList.remove('p1_info', 'p2_info', 'p3_info');
-});
+//        taskInfo.classList.remove('p1_info', 'p2_info', 'p3_info');
+// });
 
 // Add drop zone event listeners to the cards and tasks
 document.querySelectorAll('.card').forEach(card => {
