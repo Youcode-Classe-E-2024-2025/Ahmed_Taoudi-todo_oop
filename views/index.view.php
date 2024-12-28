@@ -186,7 +186,7 @@
                     <input type="text" name="taskname" id="title_add"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Type task Title" >
-                        <div class="nameError text-red-600 text-xs p-2"></div>
+                        <div class="hidden nameError text-red-600 text-xs p-2"></div>
                 </div>
                 <div class="col-span-2 sm:col-span-1">
                     <label for="taskstatus"
@@ -197,7 +197,6 @@
                         <option value="DOING">In Progress</option>
                         <option value="DONE">Done</option>
                     </select>
-                    <div class="statusError text-red-600 text-xs p-2"></div>
                 </div>
                 <div class="col-span-2 sm:col-span-1">
                     <label for="priority"
@@ -208,7 +207,6 @@
                         <option value="low">Low</option>
                         <option value="high">High</option>
                     </select>
-                    <div class="priorityError text-red-600 text-xs p-2"></div>
                 </div>
                 <div class="col-span-2 sm:col-span-1">
                     <label for="tasktype"
@@ -219,7 +217,6 @@
                         <option value="bug">Bug</option>
                         <option value="feature">Feature</option>
                     </select>
-                    <div class="categoryError text-red-600 text-xs p-2"></div>
                 </div>
                 <div class="col-span-1">
                     <label for="due_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">due
@@ -227,7 +224,7 @@
                     <input type="date" name="taskfin" id="due_date"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Type task Title" >
-                        <div class="dateError text-red-600 text-xs p-2"></div>
+                        <div class="hidden dateError text-red-600 text-xs p-2"></div>
                 </div>
                 <div class="col-span-2">
 
@@ -236,12 +233,12 @@
                     <textarea id="description" name="taskdesc" rows="4"
                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Write the description here..."></textarea>
-                    <div class="descriptionError text-red-600 text-xs p-2"></div>
+                    <div class="hidden descriptionError text-red-600 text-xs p-2"></div>
                 </div>
 
             </div>
             <div>
-                <p class="messageError text-red-600 text-xs p-2"></p>
+                <p class="hidden messageError text-red-600 text-xs p-2"></p>
             </div>
             <div class="footer_drop flex justify-between">
                 <button type="submit"
