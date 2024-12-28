@@ -21,13 +21,15 @@ class Database
 
             $this->connection = new PDO($this->dsn, USER, PASSWORD);
 
-            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION,PDO::FETCH_ASSOC);
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
 
             if ($e->getCode() == 1049) {
                 echo " info : The database does not exist.<br>";
-                echo '<form action=""  method="POST">
-                        <button type="submit" name="create_db">Create Database</button>
+                echo '<form action="/"  method="POST">
+                        <label for="checkbox"> with fake data </label>
+                        <input id="checkbox" name="checkbox" type="checkbox"> <br>
+                        <button type="submit" class="text-white" name="createdb" value="CREATE_DB">Create Database</button>
                       </form>';
             } else {
                 // Catch other PDO exceptions
@@ -51,12 +53,13 @@ class Database
 public function test(){
     echo("in database class");
 }
-    public function createDatabase($dbname) {
+    public function createDatabase($dbname,$fakedata = false) {
         try {
             
-            $filePath ="assets/database/create_database.sql";
+            $createdb ="assets/sql/create_database.sql";
+            $fakedata ="assets/sql/fakedata.sql";
             
-            if (!file_exists($filePath)) {
+            if (!file_exists($createdb)) {
                 echo "SQL file not found.";
                 return;
             }
@@ -66,13 +69,19 @@ public function test(){
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
            
-            $query = file_get_contents($filePath);
+            $query = file_get_contents($createdb);
             $this->connection->exec($query);
             echo "Database '$dbname' created successfully.";
+            if($fakedata){
+                $query = file_get_contents($fakedata);
+                $this->connection->exec($query);
+                echo "fake data success.";
+            }
             header("Location: /");
         } catch (PDOException $e) {
             echo "Error creating database: " . $e->getMessage();
         }
     }
+    
 }
 
