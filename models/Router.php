@@ -42,6 +42,7 @@ class Router
                 if (file_exists($route['ctl'])) {
                     require_once $route['ctl'];
                 } else {
+                    echo '00';
                     $this->_404();
                     return;
                 }
@@ -64,9 +65,11 @@ class Router
                     if (method_exists($controller, $methodToCall)) {
                         $controller->$methodToCall();
                     } else {
+                        echo '11';
                         $this->_404();
                     }
                 } else {
+                    echo '22';
                     $this->_404();
                 }
                 return;

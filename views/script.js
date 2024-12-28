@@ -356,56 +356,56 @@ initializeTasks();
 updateCounters();
 
 // Event delegation for delete functionality
-container.addEventListener('click', function(event) {
-    if (event.target.classList.contains('fa-trash')) {
-        event.target.closest('li').remove();
-        updateCounters();
-        alert("Task deleted successfully!");
-    }
-});
+// container.addEventListener('click', function(event) {
+//     if (event.target.classList.contains('fa-trash')) {
+//         event.target.closest('li').remove();
+//         updateCounters();
+//         // alert("Task deleted successfully!");
+//     }
+// });
 
-// Add new task
-document.getElementById("submit_btn").addEventListener("click", function(event) {
-    event.preventDefault();
+// // Add new task
+// document.getElementById("submit_btn").addEventListener("click", function(event) {
+//     event.preventDefault();
     
-    const title = document.getElementById("title_add").value.trim();
-    const description = document.getElementById("description").value.trim();
-    const priority = document.getElementById("priority").value;
-    const status = document.getElementById("status").value;
-    const dueDate = document.getElementById("due_date").value.trim();
-    const type = document.getElementById("type").value;
+//     const title = document.getElementById("title_add").value.trim();
+//     const description = document.getElementById("description").value.trim();
+//     const priority = document.getElementById("priority").value;
+//     const status = document.getElementById("status").value;
+//     const dueDate = document.getElementById("due_date").value.trim();
+//     const type = document.getElementById("type").value;
 
-    if (!title || !description || !priority || !status || !dueDate || !type) {
-        alert("Please fill out all fields.");
-        return;
-    }
+//     if (!title || !description || !priority || !status || !dueDate || !type) {
+//         alert("Please fill out all fields.");
+//         return;
+//     }
 
-    const newTask = {
-        id: tasks.length,
-        title,
-        priority,
-        status,
-        dueDate,
-        description,
-        type
-    };
-    tasks.push(newTask);
+//     const newTask = {
+//         id: tasks.length,
+//         title,
+//         priority,
+//         status,
+//         dueDate,
+//         description,
+//         type
+//     };
+//     tasks.push(newTask);
 
-    const newItem = createTaskItem(newTask);
-    if (status === "Todo") {
-        todoList.appendChild(newItem);
-    } else if (status === "In progress") {
-        progressList.appendChild(newItem);
-    } else if (status === "Done") {
-        doneList.appendChild(newItem);
-    }
-    updateCounters();
-    alert("Task added successfully!");
-    document.getElementById("modalForm").reset();
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-    container.classList.remove('blur');
-});
+//     const newItem = createTaskItem(newTask);
+//     if (status === "Todo") {
+//         todoList.appendChild(newItem);
+//     } else if (status === "In progress") {
+//         progressList.appendChild(newItem);
+//     } else if (status === "Done") {
+//         doneList.appendChild(newItem);
+//     }
+//     updateCounters();
+//     alert("Task added successfully!");
+//     document.getElementById("modalForm").reset();
+//     modal.classList.add('hidden');
+//     modal.classList.remove('flex');
+//     container.classList.remove('blur');
+// });
 
 // Handle task edit
 let itemId;

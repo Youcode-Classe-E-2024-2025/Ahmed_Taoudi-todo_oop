@@ -54,7 +54,7 @@ class Database
 public function test(){
     echo("in database class");
 }
-    public function createDatabase($dbname,$fakedata = false) {
+    public function createDatabase($dbname,$isfakedata = false) {
         try {
             
             $createdb ="assets/sql/create_database.sql";
@@ -73,7 +73,7 @@ public function test(){
             $query = file_get_contents($createdb);
             $this->connection->exec($query);
             echo "Database '$dbname' created successfully.";
-            if($fakedata){
+            if($isfakedata === true){
                 $query = file_get_contents($fakedata);
                 $this->connection->exec($query);
                 echo "fake data success.";

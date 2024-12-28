@@ -40,8 +40,8 @@ create table if not exists collaboration (
     user_id  INT  not null,
     task_id  INT  not null,
     primary key (user_id , task_id) ,
-    foreign key (user_id) references user(id),
-    foreign key (task_id) references task(id)
+    foreign key (user_id) references user(id)  on delete cascade ,
+    foreign key (task_id) references task(id) on delete cascade 
 );
 
 

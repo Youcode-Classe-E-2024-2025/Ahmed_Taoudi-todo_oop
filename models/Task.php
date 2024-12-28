@@ -58,6 +58,17 @@ class Task
             ]
         );
     }
+
+    // delete
+    public static function deleteTask($id,$db){
+         $db->query(
+            "delete from task where id = :id",
+            ['id'=>$id]
+        );
+        // echo 'A<br>';
+        // echo $stmt->rowCount();
+        // dd('');
+    }
     // SET
     public function setTaskName($name)
     {
