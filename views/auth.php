@@ -196,6 +196,6 @@
             </div>
         </div>
     </div>
-    <script src="views/canvas.js"></script>
+    <script src="assets/js/canvas.js"></script>
 </body>
 </html>
