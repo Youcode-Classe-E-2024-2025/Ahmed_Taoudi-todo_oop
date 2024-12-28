@@ -22,6 +22,7 @@ create table if not exists task (
     taskname VARCHAR(50) not null ,
     taskdesc text not null ,
     taskstatus ENUM('TODO', 'DOING', 'DONE') NOT NULL DEFAULT 'TODO' ,
+    taskpriority ENUM('low', 'medium', 'high') default 'medium' ,
     taskstart timestamp   ,
     taskfin timestamp   
 );
