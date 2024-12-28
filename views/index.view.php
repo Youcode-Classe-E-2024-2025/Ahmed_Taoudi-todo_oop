@@ -83,7 +83,16 @@
                         <div class="app_footer">
                             <p id="date"><?=$task['taskfin']?></p>
                             <span class="del_edi">
-                                <i class="fa-solid fa-trash" style="color: #000000;"></i>
+                            <form action="/task" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="id" value="<?= $task['id'] ?>">
+                                   <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>"> 
+                                   <button type="submit">
+                                   <i  class="fa-solid fa-trash" style="color: #000000;"></i>
+                                   </button>
+
+                                   
+                                </form>
                                 <i data-id="${task.id}" class="fa-solid fa-pen-to-square" style="color: #000000;"></i>
                             </span>
                         </div>
@@ -108,7 +117,16 @@
                         <div class="app_footer">
                             <p id="date"><?=$task['taskfin']?></p>
                             <span class="del_edi">
-                                <i class="fa-solid fa-trash" style="color: #000000;"></i>
+                            <form action="/task" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="id" value="<?= $task['id'] ?>">
+                                   <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>"> 
+                                   <button type="submit">
+                                   <i  class="fa-solid fa-trash" style="color: #000000;"></i>
+                                   </button>
+
+                                   
+                                </form>
                                 <i data-id="${task.id}" class="fa-solid fa-pen-to-square" style="color: #000000;"></i>
                             </span>
                         </div>
@@ -133,7 +151,16 @@
                         <div class="app_footer">
                             <p id="date"><?=$task['taskfin']?></p>
                             <span class="del_edi">
-                                <i class="fa-solid fa-trash" style="color: #000000;"></i>
+                                <form action="/task" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="id" value="<?= $task['id'] ?>">
+                                   <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>"> 
+                                   <button type="submit">
+                                   <i  class="fa-solid fa-trash" style="color: #000000;"></i>
+                                   </button>
+
+                                   
+                                </form>
                                 <i data-id="${task.id}" class="fa-solid fa-pen-to-square" style="color: #000000;"></i>
                             </span>
                         </div>
@@ -147,60 +174,60 @@
     </div>
     <!-- modal task start -->
     <div class="modal absolute left-0 top-0 items-center justify-center w-full h-full hidden">
-        <form id="modalForm" class="conf-modal min-w-96 bg-white p-4 rounded-sm md:p-5">
+        <form action="/task" method="POST"  id="modalForm" class="conf-modal min-w-96 bg-white p-4 rounded-sm md:p-5">
             <div class="grid gap-4 mb-4 grid-cols-2">
                 <div class="col-span-2">
                     <h1 class="text-center font-bold text-blue-900">Add Task</h1>
+                    <!-- CSRF -->
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>"> 
                     <label for="title_add"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
-                    <input type="text" name="title" id="title_add"
+                    <input type="text" name="taskname" id="title_add"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Type task Title" required="">
+                        placeholder="Type task Title" >
                 </div>
                 <div class="col-span-2 sm:col-span-1">
-                    <label for="status"
+                    <label for="taskstatus"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
-                    <select id="status"
+                    <select id="taskstatus" name="taskstatus"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <option selected=""> Status</option>
-                        <option value="Todo">Todo</option>
-                        <option value="In progress">In Progress</option>
-                        <option value="Done">Done</option>
+                        <option value="TODO">Todo</option>
+                        <option value="DOING">In Progress</option>
+                        <option value="DONE">Done</option>
                     </select>
                 </div>
                 <div class="col-span-2 sm:col-span-1">
                     <label for="priority"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">priority</label>
-                    <select id="priority"
+                    <select id="priority" name="taskpriority"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <option selected="">priority</option>
-                        <option value="P1">P1</option>
-                        <option value="P2">P2</option>
-                        <option value="P3">P3</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                        <option value="high">High</option>
                     </select>
                 </div>
                 <div class="col-span-2 sm:col-span-1">
-                    <label for="priority"
+                    <label for="tasktype"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">category</label>
-                    <select id="category "
+                    <select id="category" name="tasktype"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <option selected="">category</option>
-                        <option value="P1">Bug</option>
-                        <option value="P2">Feature</option>
+                        <option value="basic">basic</option>
+                        <option value="bug">Bug</option>
+                        <option value="feature">Feature</option>
                     </select>
                 </div>
                 <div class="col-span-1">
                     <label for="due_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">due
                         date</label>
-                    <input type="date" name="date" id="due_date"
+                    <input type="date" name="taskfin" id="due_date"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Type task Title" required="">
+                        placeholder="Type task Title" >
                 </div>
                 <div class="col-span-2">
 
                     <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Description</label>
-                    <textarea id="description" rows="4"
+                    <textarea id="description" name="taskdesc" rows="4"
                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Write the description here..."></textarea>
 
@@ -208,8 +235,8 @@
 
             </div>
             <div class="footer_drop flex justify-between">
-                <button type="button"
-                    id="submit_btn"
+                <button type="submit"
+                   
                     class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">

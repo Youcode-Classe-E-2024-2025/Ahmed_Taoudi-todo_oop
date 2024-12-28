@@ -51,5 +51,11 @@ class TaskController
          if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
             die("CSRF token validation failed. Possible CSRF attack.");
         }
+        $id = (int) $_POST['id'];
+        
+        Task::deleteTask($id,$this->conn);
+        // dd($id);
+        header('Location: /');
+
     }
 }

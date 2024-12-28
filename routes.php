@@ -11,14 +11,16 @@ $router->get('/task','controllers/task/taskController.php','TaskController');
 
 //  POST
 
+$router->post('/task','controllers/task/taskController.php','TaskController');
+
 // $router->post('/login','controllers/login.ctl.php');
 // $router->post('/signup','controllers/signup.ctl.php','UserController');
 
 //  UPDATE
 
-// $router->update('/task','controllers/task/TaskController.php','taskController');
+// $router->update('/task','controllers/task/taskController.php','taskController');
 
 
 //  DELETE
 
-// $router->delete('/task','controllers/task/TaskController.php','taskController');
+$router->delete('/task','controllers/task/taskController.php','TaskController');
