@@ -92,6 +92,6 @@
                   </div>
               </div>
           
-              <script src="views/canvas.js"></script>
-          </body>
+              <script src="assets/js/canvas.js"></script>
+              </body>
           </html>
