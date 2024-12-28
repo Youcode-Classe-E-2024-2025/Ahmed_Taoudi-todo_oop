@@ -234,6 +234,9 @@
                 </div>
 
             </div>
+            <div>
+                <p class="messageError text-red-600 text-xs p-2"></p>
+            </div>
             <div class="footer_drop flex justify-between">
                 <button type="submit"
                    
@@ -338,8 +341,9 @@
         </div>
 
     </div>
-    <script src="views/script.js"></script>
-    <script src="views/canvas.js"></script>
+    <script src="assets/js/regex.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/canvas.js"></script>
 </body>
 
 </html>
