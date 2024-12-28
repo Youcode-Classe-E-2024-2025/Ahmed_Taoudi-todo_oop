@@ -87,7 +87,15 @@ function createTaskItem(task) {
     addDragListeners(newItem);
 
     newItem.innerHTML = `
-        <div class="flex justify-between"> <h4>${task.title}</h4> <i data-id="${task.id}" class="fa-solid fa-info" style="color: #0041b3;"></i> </div> 
+        <div class="flex justify-between"> 
+            <h4>${task.title}</h4> 
+            <div class="flex justify-between w-fit items-center rounded-lg  ${task.type === 'Bug' ? 'bg-red-300' : 'bg-green-300'}">
+            <p class="text-xs px-2">${task.type || 'Feature'}</p>
+            <i class="fa-solid  ${task.type === 'Bug' ? 'fa-bug text-white' : 'fa-lightbulb text-white'} mr-2"></i>
+            </div>
+            <i data-id="${task.id}" class="fa-solid fa-info" style="color: #0041b3;"></i> 
+        </div> 
+        
         <p class="description hidden">${task.description}</p>
         <div class="app_footer">
             <p id="date">${task.dueDate}</p>
@@ -365,8 +373,9 @@ document.getElementById("submit_btn").addEventListener("click", function(event) 
     const priority = document.getElementById("priority").value;
     const status = document.getElementById("status").value;
     const dueDate = document.getElementById("due_date").value.trim();
+    const type = document.getElementById("type").value;
 
-    if (!title || !description || !priority || !status || !dueDate) {
+    if (!title || !description || !priority || !status || !dueDate || !type) {
         alert("Please fill out all fields.");
         return;
     }
@@ -377,7 +386,8 @@ document.getElementById("submit_btn").addEventListener("click", function(event) 
         priority,
         status,
         dueDate,
-        description
+        description,
+        type
     };
     tasks.push(newTask);
 
@@ -412,6 +422,7 @@ container.addEventListener('click', function(event) {
             document.getElementById("description_update").value = taskToEdit.description;
             document.getElementById("priority_update").value = taskToEdit.priority;
             document.getElementById("due_date_update").value = taskToEdit.dueDate;
+            document.getElementById("type_update").value = taskToEdit.type;
         }
     }
 });
@@ -421,8 +432,9 @@ document.getElementById('submit_btn_update').addEventListener('click', function(
     const description = document.getElementById("description_update").value.trim();
     const priority = document.getElementById("priority_update").value;
     const dueDate = document.getElementById("due_date_update").value.trim();
+    const type = document.getElementById("type_update").value;
 
-    if (!description || !priority || !dueDate) {
+    if (!description || !priority || !dueDate || !type) {
         alert('Please fill out all fields');
         return;
     }
@@ -432,6 +444,7 @@ document.getElementById('submit_btn_update').addEventListener('click', function(
         taskToUpdate.description = description;
         taskToUpdate.priority = priority;
         taskToUpdate.dueDate = dueDate;
+        taskToUpdate.type = type;
 
         const updatedItem = createTaskItem(taskToUpdate);
         document.querySelector(`[data-id="${itemId}"]`).closest('li').replaceWith(updatedItem);
