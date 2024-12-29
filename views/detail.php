@@ -53,9 +53,7 @@
             <div class="mb-8">
                 <h2 class="text-xl font-bold mb-4">Description</h2>
                 <p class="text-gray-700 whitespace-pre-line">
-                    Create a modern and intuitive user interface for the dashboard section. 
-                    The design should follow our brand guidelines and incorporate the following features:
-
+                <?=$task['taskdesc'] ?>
                 </p>
             </div>
           
