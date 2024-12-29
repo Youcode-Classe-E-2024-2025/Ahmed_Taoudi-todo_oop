@@ -13,9 +13,16 @@ class TaskController
     // Show all tasks (GET)
     public function show()
     {
-        var_dump((int)$_GET['id']);
+        // var_dump((int)$_GET['id']);
+       if(Task::isInDatabase($_GET['id'],$this->conn) == 0 ){
+        require_once 'views/error/404.php';
+        exit();
+       }
         $id=(int)$_GET['id'];
+
         $task= Task::getTaskById($id , $this->conn);
+        $users =Task::getUersOfTask($id,$this->conn);
+        // dd($users);
        require_once 'views/detail.php';
     }
 

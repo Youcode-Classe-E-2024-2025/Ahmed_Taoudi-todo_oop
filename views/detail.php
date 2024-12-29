@@ -61,33 +61,21 @@
           
                       <!-- Assigned Users -->
                       <div class="mb-8">
-                          <h2 class="text-xl font-bold mb-4">Assigned Users</h2>
+                          <h2 class="text-xl font-bold mb-4 text-gray-800">Assigned Users</h2>
                           <div class="bg-gray-100 p-4 rounded-lg">
                               <div class="flex flex-wrap gap-4">
+                                  <?php foreach($users as $user) :?>
                                   <div class="flex items-center bg-white p-2 rounded-lg shadow-sm justify-between w-1/4">
                                       <div class="flex items-center">
-                                          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Doe" class="w-10 h-10 rounded-full mr-3">
+                                          <!-- <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Smith" class="w-10 h-10 rounded-full mr-3"> -->
                                           <div>
-                                              <p class="font-semibold">John Doe</p>
-                                              <p class="text-sm text-gray-500">Frontend Developer</p>
+                                              <p class="font-semibold text-gray-800"><?= $user['username'] ?></p>
+                                              <p class="text-sm text-gray-500"><?= $user['useremail'] ?></p>
                                           </div>
                                       </div>
-                                      <button class="text-red-500 hover:text-red-700 focus:outline-none">
-                                          <i class="fas fa-trash-alt"></i>
-                                      </button>
+                                     
                                   </div>
-                                  <div class="flex items-center bg-white p-2 rounded-lg shadow-sm justify-between w-1/4">
-                                      <div class="flex items-center">
-                                          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Smith" class="w-10 h-10 rounded-full mr-3">
-                                          <div>
-                                              <p class="font-semibold">Jane Smith</p>
-                                              <p class="text-sm text-gray-500">UI/UX Designer</p>
-                                          </div>
-                                      </div>
-                                      <button class="text-red-500 hover:text-red-700 focus:outline-none">
-                                          <i class="fas fa-trash-alt"></i>
-                                      </button>
-                                  </div>
+                                  <?php endforeach ;?>
                               </div>
                           </div>
                       </div>

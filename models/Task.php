@@ -28,6 +28,13 @@ class Task
     {
         return $db->query("select * from task where id = :id ", ['id' => $id])->fetch();
     }
+    public static function getUersOfTask($id, $db)
+    {
+        return $db->query(
+            "select u.* from user u inner join collaboration c on u.id = c.user_id where c.task_id = :taskid "
+            , ['taskid' => $id])->fetchAll();
+    }
+    
     // update
     public static function updateTask($id, $task, $db)
     {
@@ -90,6 +97,15 @@ class Task
         // echo $stmt->rowCount();
         // dd('');
     }
+
+    // check
+    public static function isInDatabase($id ,$db){
+        $result = $db->query(
+            'select id from task where id = :id',
+            ['id' => $id]
+         );
+         return $result->rowCount();
+    } 
     // SET
 
     public function setTaskId($id)
