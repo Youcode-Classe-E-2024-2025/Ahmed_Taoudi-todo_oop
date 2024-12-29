@@ -21,10 +21,11 @@
     <canvas id="bgCanvas"></canvas>
     <!-- container -->
     <!-- blur -->
-    <?php require_once "views/partials/navbar.php" ;?>
+    
     <div class="container h-full bg-center bg-cover flex flex-col justify-center  ">
+    <?php require_once "views/partials/navbar.php" ;?>
         <!-- header of the app -->
-        <div class="app_row flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-white rounded-lg shadow-md">
+        <div class="app_row mt-28 flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-white rounded-lg shadow-md">
             <div class="flex flex-wrap gap-3 items-center">
                 <button
                     class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300"
@@ -58,11 +59,11 @@
             <div class="flex items-center gap-3">
                 <div class="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-lg">
                     <i class="fas fa-tasks text-gray-600"></i>
-                    <span class="text-sm text-gray-700">Total Tasks: <span class="font-bold">6</span></span>
+                    <span class="text-sm text-gray-700">Total Tasks: <span class="font-bold"><?php echo count($allTask)?>  </span></span>
                 </div>
                 <div class="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-lg">
                     <i class="fas fa-chart-pie text-gray-600"></i>
-                    <span class="text-sm text-gray-700">Completed: <span class="font-bold text-green-600">3</span></span>
+                    <span class="text-sm text-gray-700">Completed: <span class="font-bold text-green-600"><?php echo count($completed)?> </span></span>
                 </div>
             </div>
         </div>
@@ -75,8 +76,8 @@
                     <span class="counter" id="todo_counter">2</span>
                 </div>
                 <ul id="todo_list" class="list-container">
-                    <?php foreach($allTask as $task) :?>
-                       <?php  if($task['taskstatus'] == 'TODO'): ?>
+                    <?php foreach($todo as $task) :?>
+                      
                     <li draggable="true" id="task-" class="task-item priority-<?= $task['taskpriority']?>">
                         <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> <i data-id="<?=$task['id']?>" class="fa-solid fa-info" style="color: #0041b3;"></i> 
                         </div> 
@@ -98,7 +99,7 @@
                             </span>
                         </div>
                     </li>
-                    <?php endif ?>
+                   
                     <?php endforeach ;?>
                 </ul>
             </div>
@@ -109,8 +110,8 @@
                     <span class="counter" id="progress_counter">3</span>
                 </div>
                 <ul id="in_progress_list" class="list-container">
-                <?php foreach($allTask as $task) :?>
-                       <?php  if($task['taskstatus'] == 'DOING'): ?>
+                <?php foreach($doing as $task) :?>
+                       
                     <li draggable="true" id="task-" class="task-item priority-<?= $task['taskpriority']  ?>">
                         <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> <i data-id="${task.id}" class="fa-solid fa-info" style="color: #0041b3;"></i> 
                         </div> 
@@ -132,7 +133,6 @@
                             </span>
                         </div>
                     </li>
-                    <?php endif ?>
                     <?php endforeach ;?>
                 </ul>
             </div>
@@ -143,8 +143,7 @@
                     <span class="counter" id="done_counter">1</span>
                 </div>
                 <ul id="done_list" class="list-container">
-                <?php foreach($allTask as $task) :?>
-                       <?php  if($task['taskstatus'] == 'DONE'): ?>
+                <?php foreach($completed as $task) :?>
                     <li draggable="true" id="task-" class="task-item priority-<?= $task['taskpriority']  ?>">
                         <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> <i data-id="${task.id}" class="fa-solid fa-info" style="color: #0041b3;"></i> 
                         </div> 
@@ -166,7 +165,6 @@
                             </span>
                         </div>
                     </li>
-                    <?php endif ?>
                     <?php endforeach ;?>
                 </ul>
             </div>
