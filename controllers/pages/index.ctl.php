@@ -23,6 +23,7 @@ class Index  {
         $doing = array_filter($allTask, function ($task) {
             return $task['taskstatus'] == 'DOING';
         } );
+
         
         // dd($allTask);
         require_once("views/index.view.php");
