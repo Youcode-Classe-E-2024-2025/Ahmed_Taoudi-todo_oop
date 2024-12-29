@@ -92,13 +92,11 @@
             <div class="card todo border-red-700">
                 <div class="card_head border-b-red-700">
                     <h2>to do</h2>
-                    <span class="counter" id="todo_counter">2</span>
+                    <span class="counter" id="todo_counter"><?php echo count($todo)?></span>
                 </div>
                 <ul id="todo_list" class="list-container">
-                    <?php foreach($todo as $task) :?>
-                      
-
-                    <li draggable="true" id="task-" class="task-item priority-<?= $task['taskpriority']?>">
+                <?php foreach($todo as $task) :?>
+                    <li draggable="true" id="task-<?= $task['id'] ?>" class="task-item priority-<?= $task['taskpriority']?>">
                         <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> 
                                 <a href="/task?id=<?= $task['id'] ?>">
                                 <i class="fa-solid fa-circle-info " style="color: #447;"></i>
@@ -121,22 +119,18 @@
                             </span>
                         </div>
                     </li>
-                   
-
-                    <?php endforeach ;?>
+                <?php endforeach ;?>
                 </ul>
             </div>
             <!-- in progress card -->
             <div class="card progress border-yellow-400">
                 <div class="card_head border-b-yellow-400">
                     <h2>in progress</h2>
-                    <span class="counter" id="progress_counter">3</span>
+                    <span class="counter" id="progress_counter"><?php echo count($doing)?></span>
                 </div>
                 <ul id="in_progress_list" class="list-container">
                 <?php foreach($doing as $task) :?>
-                       
-
-                    <li draggable="true" id="task-" class="task-item priority-<?= $task['taskpriority']  ?>">
+                    <li draggable="true" id="task-<?= $task['id'] ?>" class="task-item priority-<?= $task['taskpriority']  ?>">
                         <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> 
                         <a href="/task?id=<?= $task['id'] ?>">
                                 <i class="fa-solid fa-circle-info " style="color: #447;"></i>
@@ -159,18 +153,18 @@
                             </span>
                         </div>
                     </li>
-                    <?php endforeach ;?>
+                <?php endforeach ;?>
                 </ul>
             </div>
             <!-- done_card -->
             <div class="card done border-green-500">
                 <div class="card_head border-b-green-500">
                     <h2>done</h2>
-                    <span class="counter" id="done_counter">1</span>
+                    <span class="counter" id="done_counter"><?php echo count($completed)?></span>
                 </div>
                 <ul id="done_list" class="list-container">
                 <?php foreach($completed as $task) :?>
-                    <li draggable="true" id="task-" class="task-item priority-<?= $task['taskpriority']  ?>">
+                    <li draggable="true" id="task-<?= $task['id'] ?>" class="task-item priority-<?= $task['taskpriority']  ?>">
                         <div class="flex justify-between"> <h4><?=$task['taskname']?></h4>
                          <a href="/task?id=<?= $task['id'] ?>">
                                 <i class="fa-solid fa-circle-info " style="color: #447;"></i>
@@ -195,7 +189,7 @@
                             </span>
                         </div>
                     </li>
-                    <?php endforeach ;?>
+                <?php endforeach ;?>
                 </ul>
             </div>
         </div>
