@@ -86,7 +86,7 @@
                 </div>
             </div>
         </div>
-        <div class="cards flex-wrap flex  gap-12 px-12 justify-evenly h-full">
+        <div class="cards flex-wrap flex  gap-5 px-6 justify-evenly h-full">
             <!-- modal -->
             <!-- todo card -->
             <div class="card todo border-red-700">

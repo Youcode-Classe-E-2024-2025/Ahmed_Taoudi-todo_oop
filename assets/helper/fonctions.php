@@ -8,6 +8,13 @@ function dd($element){
 
 }
 
+function pd($element){
+    echo "<pre>";
+    print_r($element);
+    echo "</pre>";
+    die();
+
+}
 function echoo($element){
     echo "<pre>";
     echo $element ;

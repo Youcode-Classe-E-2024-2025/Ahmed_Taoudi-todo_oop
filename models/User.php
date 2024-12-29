@@ -83,6 +83,12 @@ class User
       $this->setId($user['id']);
 
    }
+   public static function getUserbyId($db,$id){
+      $user = $db->query("select * from user where id = :id", ['id' => $id])->fetch();
+      // dd($user);
+      return $user;
+   }
+
    public function getId()
    {
       return $this->id;
