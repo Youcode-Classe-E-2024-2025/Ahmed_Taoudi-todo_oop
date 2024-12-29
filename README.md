@@ -1,7 +1,7 @@
 # TaskFlow: Collaborative Task Management System
 
 ## Project Overview
-TaskMaster is a modern, object-oriented PHP task management application designed to streamline team collaboration and project tracking.
+taskFlow is a modern, object-oriented PHP task management application designed to streamline team collaboration and project tracking.
 
 ## Features
 - User Authentication
@@ -28,8 +28,8 @@ TaskMaster is a modern, object-oriented PHP task management application designed
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/taskmaster.git
-cd taskmaster
+git clone https://github.com/Youcode-Classe-E-2024-2025/anouar_elbarry-todo_oop.git
+cd taskFlow
 ```
 
 ### 2. Database Setup
