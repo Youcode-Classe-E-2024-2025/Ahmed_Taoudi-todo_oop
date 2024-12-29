@@ -23,7 +23,9 @@ class UserController
     // Register a new user (POST)
     public function store()
     {
-        // CSRF
+        if (isset($_POST['logout'])) {
+            return $this->logout();
+        }
         if (isset($_SESSION['username'])) {
             header('location: /');
             return;
@@ -31,9 +33,7 @@ class UserController
         if (isset($_POST['login'])) {
             return $this->login();
         }
-        if (isset($_POST['logout'])) {
-            return $this->logout();
-        }
+        // CSRF
         if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
             die("CSRF token validation failed. Possible CSRF attack.");
         }
@@ -96,9 +96,10 @@ class UserController
     }
 
     public function logout(){
+        session_unset();
         session_destroy();
-       
-        header('Location: /login');
+    //    dd('333333');
+        header('Location: /');
     }
 
     public function update()

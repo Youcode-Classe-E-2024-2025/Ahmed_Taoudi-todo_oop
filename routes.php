@@ -14,6 +14,7 @@ $router->get('/signup','controllers/user/UserController.php','UserController');
 $router->post('/task','controllers/task/taskController.php','TaskController');
 
 $router->post('/login','controllers/user/UserController.php','UserController');
+$router->post('/logout','controllers/user/UserController.php','UserController');
 $router->post('/signup','controllers/user/UserController.php','UserController');
 
 //  UPDATE

@@ -19,7 +19,7 @@
                 <?php else: ?>
                     <div class="flex items-center gap-3">
                         <div class="relative group">
-                            <a href="/task" class="flex items-center gap-1 text-blue-900 hover:text-blue-600 transition-colors duration-300 text-sm">
+                            <a href="/" class="flex items-center gap-1 text-blue-900 hover:text-blue-600 transition-colors duration-300 text-sm">
                                 <i class="fas fa-list-check"></i>
                                 <span class="group-hover:pl-1 transition-all duration-300">Tasks</span>
                             </a>
@@ -29,9 +29,11 @@
                                 <i class="fas fa-user"></i>
                             </a>
                         </div>
-                        <a href="/connecter?mtd=logout" class="flex items-center gap-2 px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition-all duration-300 text-sm">
-                            <i class="fas fa-sign-out-alt"></i> Log Out
-                        </a>
+                        <form action="/logout" method="POST">
+                        <button type="submit" name="logout" class="flex items-center gap-2 px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition-all duration-300 text-sm">
+                            <i class="fas fa-sign-out-alt"></i> Log Out 
+                        </button>
+                        </form>
                     </div>
                 <?php endif; ?>
             </div>
