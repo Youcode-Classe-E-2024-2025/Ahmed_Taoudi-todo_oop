@@ -29,15 +29,13 @@
                 <div class="text-center">
                     <div class="w-32 h-32 mx-auto mb-4 relative">
                         <img class="rounded-full w-full h-full object-cover" src="https://ui-avatars.com/api/?name=John+Doe" alt="Profile Picture">
-                        <button class="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-2 hover:bg-blue-600">
-                            <i class="fas fa-camera"></i>
-                        </button>
                     </div>
-                    <h2 class="text-2xl font-bold mb-2">John Doe</h2>
-                    <p class="text-gray-600 mb-4">@johndoe</p>
+                    <h2 class="text-2xl font-bold mb-2"></h2>
+                    <p class="text-gray-600 mb-4"><?= "@$username" ?></p>
+                    <p class="text-gray-600 mb-4"><?= $userEmail ?></p>
                     <div class="flex justify-center space-x-4 mb-4">
-                        <span class="text-gray-600"><i class="fas fa-tasks"></i> 24 Tasks</span>
-                        <span class="text-gray-600"><i class="fas fa-check-circle"></i> 18 Completed</span>
+                        <span class="text-gray-600"><i class="fas fa-tasks"></i> <?= $taskCount ?> Tasks</span>
+                        <span class="text-gray-600"><i class="fas fa-check-circle"></i> <?= $Completedtasks ?> Completed</span>
                     </div>
                 </div>
             </div>
@@ -48,71 +46,19 @@
                 <div class="space-y-4">
                     <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
                         <span class="font-medium">Todo</span>
-                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full">6</span>
+                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full"> <?= $Todotasks ?></span>
                     </div>
                     <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
                         <span class="font-medium">In Progress</span>
-                        <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full">4</span>
+                        <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full"><?= $inprogresstasks ?></span>
                     </div>
                     <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
                         <span class="font-medium">Completed</span>
-                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full">14</span>
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full"><?= $Completedtasks ?></span>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Column - Recent Activity -->
-            <div class="card bg-white p-6 rounded-lg shadow-lg">
-                <h3 class="text-xl font-bold mb-4">Recent Activity</h3>
-                <div class="space-y-4">
-                    <div class="flex items-center space-x-3">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                            <i class="fas fa-check text-blue-500"></i>
-                        </div>
-                        <div>
-                            <p class="font-medium">Completed task "Update Documentation"</p>
-                            <p class="text-sm text-gray-500">2 hours ago</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <div class="flex-shrink-0 w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center">
-                            <i class="fas fa-clock text-yellow-500"></i>
-                        </div>
-                        <div>
-                            <p class="font-medium">Started task "Design New Features"</p>
-                            <p class="text-sm text-gray-500">5 hours ago</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <div class="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                            <i class="fas fa-plus text-green-500"></i>
-                        </div>
-                        <div>
-                            <p class="font-medium">Created new task "Review Pull Requests"</p>
-                            <p class="text-sm text-gray-500">1 day ago</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Settings Section -->
-        <div class="mt-8 bg-white p-6 rounded-lg shadow-lg">
-            <h3 class="text-xl font-bold mb-4">Settings</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-                        Email
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" value="john@example.com" disabled>
-                </div>
-                <div>
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
-                        Username
-                    </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" value="johndoe" disabled>
-                </div>
-            </div>
         </div>
     </div>
 

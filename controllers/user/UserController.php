@@ -13,8 +13,20 @@ class UserController
     public function show()
     {
         if (isset($_SESSION['userid']) && isset($_SESSION['username'])) {
+            $userId = $_SESSION['userid'];
+            $user = User::getUserbyId($this->conn,$_SESSION['userid']);
+            $tasks = $this->conn->query("SELECT t.* FROM task t INNER JOIN collaboration cl ON t.id = cl.task_id  WHERE cl.user_id = $userId")->fetchAll();
 
+            // pd($task);
+            $Completedtasks = count( array_filter($tasks,function($task){  return $task['taskstatus'] == 'DONE';}));
+            $inprogresstasks =count( array_filter($tasks,function($task){  return $task['taskstatus'] == 'DOING';}));
+            $Todotasks = count( array_filter($tasks,function($task){  return $task['taskstatus'] == 'TODO';}));
+            // pd($Completedtasks);
+            $username = $_SESSION['username'];
+            $userEmail = $_SESSION['useremail'];
+            $taskCount = count($tasks);
             require_once "views/profile.view.php";
+           
         } else {
             require_once "views/auth.php";
         }
