@@ -31,14 +31,16 @@
         <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
             <div class="flex justify-between items-start mb-6">
                 <div>
-                    <h1 class="text-3xl font-bold mb-2">Design New User Interface</h1>
+                    <h1 class="text-3xl font-bold mb-2"><?=$task['taskname'] ?></h1>
                     <div class="flex items-center gap-4 text-gray-600">
-                        <span><i class="fas fa-calendar"></i> Created: Dec 26, 2024</span>
-                        <span><i class="fas fa-clock"></i> Due: Dec 30, 2024</span>
+                        <span><i class="fas fa-calendar"></i> Created: <?=$task['taskstart'] ?></span>
+                        <span><i class="fas fa-clock"></i> Due: <?= $task['taskfin'] ? $task['taskfin']:" no worry " ?></span>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
-                    <span class="px-4 py-2 bg-yellow-100 text-yellow-800 rounded-full">In Progress</span>
+                    <span 
+                    class="px-4 py-2 <?=$task['taskstatus']=='TODO' ?' bg-rose-100 text-rose-800 ':($task['taskstatus']=='DOING'? ' bg-yellow-100 text-yellow-800 ':'bg-green-100 text-green-800 ') ?> rounded-full"
+                    ><?=$task['taskstatus'] ?></span>
                     <div class="relative">
                         <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                             Change Status
