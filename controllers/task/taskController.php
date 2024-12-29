@@ -14,6 +14,7 @@ class TaskController
     public function show()
     {
         // var_dump((int)$_GET['id']);
+        if (!isset($_SESSION['userid']) || !isset($_SESSION['username'])) { header('location: /'); exit(); } 
        if(Task::isInDatabase($_GET['id'],$this->conn) == 0 ){
         require_once 'views/error/404.php';
         exit();

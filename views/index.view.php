@@ -97,10 +97,13 @@
                 <ul id="todo_list" class="list-container">
                 <?php foreach($todo as $task) :?>
                     <li draggable="true" id="task-<?= $task['id'] ?>" class="task-item priority-<?= $task['taskpriority']?>">
-                        <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> 
-                                <a href="/task?id=<?= $task['id'] ?>">
+                        <div class="flex justify-between">
+                             <a href="/task?id=<?= $task['id'] ?>">
+                                   <h4><?=$task['taskname']?></h4>
+                              </a>
+                              <a href="/task?id=<?= $task['id'] ?>">
                                 <i class="fa-solid fa-circle-info " style="color: #447;"></i>
-                                </a>
+                             </a>
                         </div> 
                         <p class="description hidden"><?=$task['taskdesc']?></p>
                         <div class="app_footer">
@@ -131,11 +134,14 @@
                 <ul id="in_progress_list" class="list-container">
                 <?php foreach($doing as $task) :?>
                     <li draggable="true" id="task-<?= $task['id'] ?>" class="task-item priority-<?= $task['taskpriority']  ?>">
-                        <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> 
-                        <a href="/task?id=<?= $task['id'] ?>">
+                         <div class="flex justify-between">
+                             <a href="/task?id=<?= $task['id'] ?>">
+                                   <h4><?=$task['taskname']?></h4>
+                              </a>
+                              <a href="/task?id=<?= $task['id'] ?>">
                                 <i class="fa-solid fa-circle-info " style="color: #447;"></i>
-                                </a>
-                        </div> 
+                             </a>
+                        </div>
                         <p class="description hidden"><?=$task['taskdesc']?></p>
                         <div class="app_footer">
                             <p id="date"><?=$task['taskfin']?></p>
@@ -165,10 +171,13 @@
                 <ul id="done_list" class="list-container">
                 <?php foreach($completed as $task) :?>
                     <li draggable="true" id="task-<?= $task['id'] ?>" class="task-item priority-<?= $task['taskpriority']  ?>">
-                        <div class="flex justify-between"> <h4><?=$task['taskname']?></h4>
-                         <a href="/task?id=<?= $task['id'] ?>">
+                        <div class="flex justify-between">
+                             <a href="/task?id=<?= $task['id'] ?>">
+                                   <h4><?=$task['taskname']?></h4>
+                              </a>
+                              <a href="/task?id=<?= $task['id'] ?>">
                                 <i class="fa-solid fa-circle-info " style="color: #447;"></i>
-                                </a>
+                             </a>
                         </div> 
                         <p class="description hidden"><?=$task['taskdesc']?></p>
                         <div class="app_footer">

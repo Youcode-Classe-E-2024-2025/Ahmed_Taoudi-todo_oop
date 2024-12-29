@@ -55,8 +55,8 @@ class UserController
             // dd($newUserId);
             require("views/auth.php");
         }
-        echo "User registration process...";
-        require_once "views/profile.view.php";
+        // echo "User registration process...";
+        // require_once "views/profile.view.php";
     }
 
     // Log the user in (POST)
