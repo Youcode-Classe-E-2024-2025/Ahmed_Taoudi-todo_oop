@@ -13,7 +13,9 @@ class TaskController
     // Show all tasks (GET)
     public function show()
     {
-        // var_dump((int)$_GET['id']);
+        var_dump((int)$_GET['id']);
+        $id=(int)$_GET['id'];
+        $task= Task::getTaskById($id , $this->conn);
        require_once 'views/detail.php';
     }
 

@@ -79,7 +79,10 @@
                     <?php foreach($todo as $task) :?>
                       
                     <li draggable="true" id="task-" class="task-item priority-<?= $task['taskpriority']?>">
-                        <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> <i data-id="<?=$task['id']?>" class="fa-solid fa-info" style="color: #0041b3;"></i> 
+                        <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> 
+                                <a href="/task?id=<?= $task['id'] ?>">
+                                <i class="fa-solid fa-circle-info " style="color: #447;"></i>
+                                </a>
                         </div> 
                         <p class="description hidden"><?=$task['taskdesc']?></p>
                         <div class="app_footer">
@@ -95,7 +98,6 @@
 
                                    
                                 </form>
-                                <i data-id="${task.id}" class="fa-solid fa-pen-to-square" style="color: #000000;"></i>
                             </span>
                         </div>
                     </li>
@@ -113,7 +115,10 @@
                 <?php foreach($doing as $task) :?>
                        
                     <li draggable="true" id="task-" class="task-item priority-<?= $task['taskpriority']  ?>">
-                        <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> <i data-id="${task.id}" class="fa-solid fa-info" style="color: #0041b3;"></i> 
+                        <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> 
+                        <a href="/task?id=<?= $task['id'] ?>">
+                                <i class="fa-solid fa-circle-info " style="color: #447;"></i>
+                                </a>
                         </div> 
                         <p class="description hidden"><?=$task['taskdesc']?></p>
                         <div class="app_footer">
@@ -129,7 +134,6 @@
 
                                    
                                 </form>
-                                <i data-id="${task.id}" class="fa-solid fa-pen-to-square" style="color: #000000;"></i>
                             </span>
                         </div>
                     </li>
@@ -145,7 +149,10 @@
                 <ul id="done_list" class="list-container">
                 <?php foreach($completed as $task) :?>
                     <li draggable="true" id="task-" class="task-item priority-<?= $task['taskpriority']  ?>">
-                        <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> <i data-id="${task.id}" class="fa-solid fa-info" style="color: #0041b3;"></i> 
+                        <div class="flex justify-between"> <h4><?=$task['taskname']?></h4>
+                         <a href="/task?id=<?= $task['id'] ?>">
+                                <i class="fa-solid fa-circle-info " style="color: #447;"></i>
+                                </a>
                         </div> 
                         <p class="description hidden"><?=$task['taskdesc']?></p>
                         <div class="app_footer">
@@ -161,7 +168,7 @@
 
                                    
                                 </form>
-                                <i data-id="${task.id}" class="fa-solid fa-pen-to-square" style="color: #000000;"></i>
+                                
                             </span>
                         </div>
                     </li>
