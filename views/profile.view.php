@@ -28,7 +28,7 @@
             <div class="card bg-white p-6 rounded-lg shadow-lg">
                 <div class="text-center">
                     <div class="w-32 h-32 mx-auto mb-4 relative">
-                        <img class="rounded-full w-full h-full object-cover" src="https://ui-avatars.com/api/?name=John+Doe" alt="Profile Picture">
+                        <img class="rounded-full w-full h-full object-cover" src="https://ui-avatars.com/api/?name=<?= $username ?>&background=0D8ABC&color=fff" alt="Profile Picture">
                     </div>
                     <h2 class="text-2xl font-bold mb-2"></h2>
                     <p class="text-gray-600 mb-4"><?= "@$username" ?></p>
