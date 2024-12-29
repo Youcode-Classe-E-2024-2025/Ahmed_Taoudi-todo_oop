@@ -16,8 +16,8 @@ class Task
         $this->setTaskDesc($desc);
         $this->setTaskStatus($status);
         $this->setTaskPriority($priority);
-        $this->setTaskStart($fin);
-        $this->setTaskFin($start);
+        $this->setTaskStart($start);
+        $this->setTaskFin($fin);
     }
     public static function getAllTask($db)
     {
