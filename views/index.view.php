@@ -21,49 +21,68 @@
     <canvas id="bgCanvas"></canvas>
     <!-- container -->
     <!-- blur -->
-    
+
     <div class="container h-full bg-center bg-cover flex flex-col justify-center  ">
-    <?php require_once "views/partials/navbar.php" ;?>
+        <?php require_once "views/partials/navbar.php" ;?>
         <!-- header of the app -->
-        <div class="app_row mt-28 flex flex-col md:flex-row items-center justify-between gap-4 p-4 bg-white rounded-lg shadow-md">
-            <div class="flex flex-wrap gap-3 items-center">
+        <div class="app_row mt-28 flex flex-col md:flex-row items-center justify-between gap-6 p-6 bg-white rounded-lg shadow-md">
+            <div class="flex flex-wrap gap-4 items-center w-full md:w-auto">
                 <button
-                    class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300"
+                    class="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                     id="add_one">
-                    <i class="fas fa-plus"></i> Add Task
+                    <i class="fas fa-plus"></i> 
+                    <span class="hidden md:inline">Add Task</span>
                 </button>
+                
+                <!-- Quick Filter Dropdown -->
+                <div class="relative">
+                    <select id="task-filter" class="appearance-none bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-4 py-2 pr-8">
+                        <option value="">All Tasks</option>
+                        <option value="HIGH">High Priority</option>
+                        <option value="MEDIUM">Medium Priority</option>
+                        <option value="LOW">Low Priority</option>
+                        <option value="BUG">Bugs</option>
+                        <option value="FEATURE">Features</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                        </svg>
+                    </div>
+                </div>
             </div>
 
             <!-- Search Bar with Enhanced Design -->
-            <div class="flex-grow max-w-md mx-auto">
+            <div class="flex-grow max-w-md w-full">
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <i class="fas fa-search text-gray-400"></i>
                     </div>
                     <input 
                         type="search" 
-                        id="default-search"
-                        placeholder="Search tasks..." 
-                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                        id="task-search"
+                        placeholder="Search tasks by name or description..." 
+                        class="w-full pl-10 pr-4 py-2 border border-gray-300 text-sm rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
                     />
                     <button 
                         type="button" 
-                        class="absolute right-1 top-1/2 -translate-y-1/2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 transition-colors duration-300"
+                        id="search-button"
+                        class="absolute right-1 top-1/2 -translate-y-1/2 bg-blue-500 text-white text-sm px-3 py-1 rounded hover:bg-blue-600 transition-colors duration-300"
                     >
                         Search
                     </button>
                 </div>
             </div>
 
-            <!-- Quick Stats or Additional Actions -->
-            <div class="flex items-center gap-3">
+            <!-- Quick Stats -->
+            <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-lg">
                     <i class="fas fa-tasks text-gray-600"></i>
-                    <span class="text-sm text-gray-700">Total Tasks: <span class="font-bold"><?php echo count($allTask)?>  </span></span>
+                    <span class="text-sm text-gray-700">Total: <span class="font-bold"><?php echo count($allTask)?></span></span>
                 </div>
-                <div class="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-lg">
-                    <i class="fas fa-chart-pie text-gray-600"></i>
-                    <span class="text-sm text-gray-700">Completed: <span class="font-bold text-green-600"><?php echo count($completed)?> </span></span>
+                <div class="flex items-center gap-2 bg-green-100 px-3 py-2 rounded-lg">
+                    <i class="fas fa-check-circle text-green-600"></i>
+                    <span class="text-sm text-green-700">Completed: <span class="font-bold text-green-800"><?php echo count($completed)?></span></span>
                 </div>
             </div>
         </div>
@@ -78,6 +97,7 @@
                 <ul id="todo_list" class="list-container">
                     <?php foreach($todo as $task) :?>
                       
+
                     <li draggable="true" id="task-" class="task-item priority-<?= $task['taskpriority']?>">
                         <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> 
                                 <a href="/task?id=<?= $task['id'] ?>">
@@ -102,6 +122,7 @@
                         </div>
                     </li>
                    
+
                     <?php endforeach ;?>
                 </ul>
             </div>
@@ -114,6 +135,7 @@
                 <ul id="in_progress_list" class="list-container">
                 <?php foreach($doing as $task) :?>
                        
+
                     <li draggable="true" id="task-" class="task-item priority-<?= $task['taskpriority']  ?>">
                         <div class="flex justify-between"> <h4><?=$task['taskname']?></h4> 
                         <a href="/task?id=<?= $task['id'] ?>">
@@ -169,6 +191,7 @@
                                    
                                 </form>
                                 
+
                             </span>
                         </div>
                     </li>
@@ -248,6 +271,7 @@
             <div class="footer_drop flex justify-between">
                 <button type="submit"
                    
+
                     class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg">
@@ -349,6 +373,87 @@
         </div>
 
     </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('task-search');
+        const filterSelect = document.getElementById('task-filter');
+        const searchButton = document.getElementById('search-button');
+        const taskLists = {
+            'todo': document.getElementById('todo_list'),
+            'progress': document.getElementById('in_progress_list'),
+            'done': document.getElementById('done_list')
+        };
+
+        function filterTasks() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const statusFilter = filterSelect.value;
+
+            // Iterate through all task lists
+            Object.values(taskLists).forEach(list => {
+                const tasks = list.querySelectorAll('li');
+                
+                tasks.forEach(task => {
+                    const taskName = task.querySelector('h4').textContent.toLowerCase();
+                    const taskDesc = task.querySelector('.description').textContent.toLowerCase();
+
+                    // Check search term and status filter
+                    const matchesSearch = searchTerm === '' || 
+                        taskName.includes(searchTerm) || 
+                        taskDesc.includes(searchTerm);
+                
+                    const matchesStatus = statusFilter === '' || 
+                        (statusFilter === 'HIGH' && task.classList.contains('priority-high')) ||
+                        (statusFilter === 'MEDIUM' && task.classList.contains('priority-medium')) ||
+                        (statusFilter === 'LOW' && task.classList.contains('priority-low')) ||
+                        (statusFilter === 'BUG' && task.classList.contains('bug')) ||
+                        (statusFilter === 'FEATURE' && task.classList.contains('feature'));
+
+                    // Show or hide task based on filters
+                    task.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
+                });
+            });
+
+            // Update counters for visible tasks in each list
+            updateVisibleTaskCounters();
+        }
+
+        function updateVisibleTaskCounters() {
+            Object.keys(taskLists).forEach(key => {
+                const list = taskLists[key];
+                const visibleTasks = list.querySelectorAll('li:not([style*="display: none"])');
+                const counter = document.getElementById(`${key}_counter`);
+                
+                if (counter) {
+                    counter.textContent = visibleTasks.length;
+                }
+            });
+        }
+
+        // Add event listeners
+        searchInput.addEventListener('input', filterTasks);
+        filterSelect.addEventListener('change', filterTasks);
+        searchButton.addEventListener('click', filterTasks);
+    });
+    </script>
+
+    <style>
+    /* Optional: Add some subtle hover and focus states */
+    #task-filter:focus, #task-search:focus {
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .app_row {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .app_row > * {
+            width: 100% !important;
+        }
+    }
+    </style>
     <script src="assets/js/regex.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/canvas.js"></script>
