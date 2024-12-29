@@ -17,6 +17,10 @@ class Database
     {
         $this->dsn = "mysql:host=" . HOST . ";port=" . PORT . ";dbname=" . DBNAME;
 
+        // Suppress error display
+        error_reporting(0);
+        ini_set('display_errors', 0);
+
         try {
 
             $this->connection = new PDO($this->dsn, USER, PASSWORD);
@@ -25,16 +29,12 @@ class Database
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
 
-            if ($e->getCode() == 1049) {
-                echo " info : The database does not exist.<br>";
-                echo '<form action="/"  method="POST">
-                        <label for="checkbox"> with fake data </label>
-                        <input id="checkbox" name="checkbox" type="checkbox"> <br>
-                        <button type="submit" class="text-white" name="createdb" value="CREATE_DB">Create Database</button>
-                      </form>';
+            if ($e->getCode() == 1049) {        
+                require_once("views/creatDb.php"); 
+
             } else {
-                // Catch other PDO exceptions
-                echo "Connection failed: " . $e->getMessage();
+                // Log the error instead of displaying it
+                error_log("Database Connection Error: " . $e->getMessage());
             }
         }
     }
@@ -85,4 +85,3 @@ public function test(){
     }
     
 }
-

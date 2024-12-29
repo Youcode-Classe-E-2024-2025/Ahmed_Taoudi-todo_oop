@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalForm = document.getElementById('modalForm');
     const cancel_btn = document.getElementById('cancel_btn');
     const messageError = modalForm.querySelector(".messageError");
+    const nameError = modalForm.querySelector(".nameError");
+    const dateError = modalForm.querySelector(".dateError");
+    const descriptionError = modalForm.querySelector(".descriptionError");
 
     // Input elements
     const taskNameInput = document.getElementById('title_add');
@@ -10,6 +13,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const taskstatus = document.getElementById('taskstatus');
     const priority = document.getElementById('priority');
     const category = document.getElementById('category');
+
+    const errors = [
+        messageError,
+        nameError,
+        dateError,
+        descriptionError
+    ];
 
     // Validation functions
     function validateTaskName(name) {
@@ -36,72 +46,88 @@ document.addEventListener('DOMContentLoaded', function() {
     taskNameInput.addEventListener('input', function() {
         if (!validateTaskName(this.value)) {
             this.classList.add('border-red-500');
-            messageError.textContent = 'Task name must be 3-50 characters long and contain valid characters.';
+            nameError.textContent = 'Task name must be 3-50 characters long and contain valid characters.';
+            nameError.classList.remove('hidden');
         } else {
             this.classList.remove('border-red-500');
-            messageError.textContent = '';
+            nameError.textContent = '';
+            nameError.classList.add('hidden');
         }
     });
 
     taskDescInput.addEventListener('input', function() {
         if (!validateTaskDescription(this.value)) {
             this.classList.add('border-red-500');
-            messageError.textContent = 'Description must be 10-300 characters long and contain valid characters.';
+            descriptionError.textContent = 'Description must be 10-300 characters long and contain valid characters.';
+            descriptionError.classList.remove('hidden');
         } else {
             this.classList.remove('border-red-500');
-            messageError.textContent = '';
+            descriptionError.textContent = '';
+            descriptionError.classList.add('hidden');
         }
     });
 
     dueDateInput.addEventListener('change', function() {
         if (!validateDueDate(this.value)) {
             this.classList.add('border-red-500');
-            messageError.textContent = 'Due date cannot be in the past.';
+            dateError.textContent = 'Due date cannot be in the past.';
+            dateError.classList.remove('hidden');
         } else {
             this.classList.remove('border-red-500');
-            messageError.textContent = '';
+            dateError.textContent = '';
+            dateError.classList.add('hidden');
         }
     });
 
     // Form submission validation
     modalForm.addEventListener('submit', function(event) {
         let isValid = true;
-        messageError.textContent = '';
+        messageError.textContent = "";
+        messageError.classList.add('hidden');
 
         // Validate task name
         if (!validateTaskName(taskNameInput.value)) {
             taskNameInput.classList.add('border-red-500');
-            messageError.textContent += 'Invalid task name. ';
+            nameError.textContent = 'Invalid task name.';
+            nameError.classList.remove('hidden');
             isValid = false;
         }
 
         // Validate description
         if (!validateTaskDescription(taskDescInput.value)) {
             taskDescInput.classList.add('border-red-500');
-            messageError.textContent += 'Invalid description. ';
+            descriptionError.textContent = 'Invalid description.';
+            descriptionError.classList.remove('hidden');
             isValid = false;
         }
 
         // Validate due date
         if (!validateDueDate(dueDateInput.value)) {
             dueDateInput.classList.add('border-red-500');
-            messageError.textContent += 'Invalid due date. ';
+            dateError.textContent = 'Invalid due date.';
+            dateError.classList.remove('hidden');
             isValid = false;
         }
 
-        // Validate other fields
-        if (taskstatus.value == "") {
-            messageError.textContent += 'Please select a task status. ';
+        // Validate empty fields
+        if (taskNameInput.value.trim() === "") {
+            taskNameInput.classList.add('border-red-500');
+            nameError.textContent = 'Please enter a task name.';
+            nameError.classList.remove('hidden');
             isValid = false;
         }
 
-        if (priority.value == "") {
-            messageError.textContent += 'Please select a priority. ';
+        if (taskDescInput.value.trim() === "") {
+            taskDescInput.classList.add('border-red-500');
+            descriptionError.textContent = 'Please enter a description.';
+            descriptionError.classList.remove('hidden');
             isValid = false;
         }
 
-        if (category.value == "") {
-            messageError.textContent += 'Please select a category. ';
+        if (dueDateInput.value === "") {
+            dueDateInput.classList.add('border-red-500');
+            dateError.textContent = 'Please select a due date.';
+            dateError.classList.remove('hidden');
             isValid = false;
         }
 
@@ -110,7 +136,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    cancel_btn.addEventListener("click",() =>{
-        modalForm.querySelector(".messageError").textContent = "";
-    })
+    cancel_btn.addEventListener("click", () => {
+        messageError.textContent = "";
+        messageError.classList.add('hidden');
+        
+        errors.forEach(error => {
+            error.textContent = "";
+            error.classList.add('hidden');
+        });
+
+        // Reset input styles
+        taskNameInput.classList.remove('border-red-500');
+        taskDescInput.classList.remove('border-red-500');
+        dueDateInput.classList.remove('border-red-500');
+    });
 });
