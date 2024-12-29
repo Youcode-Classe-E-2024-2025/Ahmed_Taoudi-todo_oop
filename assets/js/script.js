@@ -14,9 +14,11 @@ const doneCounter = document.getElementById("done_counter");
 
 // Show modal (add task)
 addTask.addEventListener('click', () => {
+    document.getElementById('modalForm').reset();
     modal.classList.remove('hidden');
     modal.classList.add('flex');
     container.classList.add('blur');
+    
 });
 
 const cancel_add = document.getElementById('cancel_btn');
@@ -24,6 +26,8 @@ cancel_add.addEventListener('click', () => {
     modal.classList.add('hidden');
     modal.classList.remove('flex');
     container.classList.remove('blur');
+    clearContributors();
+
 });
 
 // Function to create a new task item with status dropdown

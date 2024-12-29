@@ -2,6 +2,7 @@
 
 
 require_once "models/Task.php";
+require_once "models/User.php";
 
 // global $db;
 class Index  {
@@ -16,6 +17,7 @@ class Index  {
 
             $allTask = Task::getAllTask($this->conn);
             // $db->test();
+            $usersQuery = User::getAllUser($this->conn);
             $completed = array_filter($allTask, function ($task) {
                 return $task['taskstatus'] == 'DONE';
             } );

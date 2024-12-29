@@ -57,8 +57,29 @@ class Task
                 "start" => $this->getTaskStart()
             ]
         );
+       $this->setTaskId($db->lastInsertId());
+    return  $this->getTaskID();  
     }
+    // add user to task (linkihom)
+    public static function   addUserToTask($taskId,$userId,$db){
 
+       $count = $db->query(
+                    "select count(*) from collaboration where user_id = :userId and task_id = :taskId ",
+                    [
+                        "userId" => $userId,
+                        "taskId" => $taskId 
+                    ]
+              )->fetchColumn();
+        if($count == 0){
+            $db->query(
+                "insert into collaboration(user_id ,task_id) values (:userId ,:taskId ) ",
+                [
+                    "userId" => $userId,
+                    "taskId" => $taskId 
+                ]
+            );
+         }
+    }
     // delete
     public static function deleteTask($id,$db){
          $db->query(
@@ -70,9 +91,14 @@ class Task
         // dd('');
     }
     // SET
+
+    public function setTaskId($id)
+    {
+        $this->id = (int) $id;
+    }
     public function setTaskName($name)
     {
-        $this->taskname = $name;
+        $this->taskname =  $name;
     }
     public function setTaskDesc($desc)
     {
@@ -96,6 +122,9 @@ class Task
     }
 
     // GET
+    public function  getTaskID(){
+        return $this->id;
+    }
     public function getTaskName()
     {
         return $this->taskname;

@@ -99,6 +99,9 @@ class User
    {
       return $this->userpassword;
    }
+   public static function getAllUser($db){
+      return  $db->query("select id, username , useremail from user ")->fetchAll();
+   }
 
 
    // password check

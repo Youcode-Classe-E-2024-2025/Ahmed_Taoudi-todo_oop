@@ -32,7 +32,29 @@ class TaskController
         $start= date('Y-m-d H:i:s');
         $fin=Validator::XSS($_POST['taskfin']);
         $task = new Task($name,$desc,$status,$priority,$start,$fin);
-        $task->createTask($this->conn);
+      $newtaskid =  $task->createTask($this->conn);
+    //   dd($newtaskid);
+       // Ensure 'contributor' is handled correctly
+        if (isset($_POST['contributor'])) {
+            $contributors = $_POST['contributor'];
+
+            // If it's a comma-separated list (which is likely), split it
+            if (is_string($contributors[0])) {
+                $contributors = explode(',', $contributors[0]);
+            }
+
+            // Clean up the IDs and ensure they're integers
+            $contributors = array_map('intval', $contributors);
+
+            // var_dump($contributors);
+            if(count($contributors) >= 1 && $contributors[0] !== 0 ){
+                
+                foreach($contributors as $userId){
+                    Task::addUserToTask($newtaskid,$userId,$this->conn);
+                }
+                // echo  count($contributors);
+            }
+        }
         header('Location: /');
 
     }

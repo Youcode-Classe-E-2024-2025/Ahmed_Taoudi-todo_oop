@@ -38,6 +38,9 @@ class Database
             }
         }
     }
+    public function lastInsertId(){
+        return $this->connection->lastInsertId();
+    }
 
     public function query($query,$param = [])
     {

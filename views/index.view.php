@@ -286,7 +286,7 @@
                         
                         <div id="contributorList" class="space-y-2 max-h-[50vh] overflow-y-auto pr-2">
                             <?php 
-                            $usersQuery = $this->conn->query("SELECT id, username FROM user")->fetchAll();
+
                             foreach($usersQuery as $user): 
                                 $bgColors = ['bg-blue-100', 'bg-green-100', 'bg-red-100', 'bg-yellow-100'];
                                 $randomBg = $bgColors[array_rand($bgColors)];
