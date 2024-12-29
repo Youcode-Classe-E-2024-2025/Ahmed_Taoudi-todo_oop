@@ -220,6 +220,7 @@
                         <option value="DONE">Done</option>
                     </select>
                 </div>
+               
                 <div class="col-span-2 sm:col-span-1">
                     <label for="priority"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">priority</label>
@@ -248,11 +249,127 @@
                         placeholder="Type task Title" >
                         <div class="hidden dateError text-red-600 text-xs p-2"></div>
                 </div>
+                <div class="col-span-2 sm:col-span-2">
+                    <label for="contributor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contributors</label>
+                    <div class="relative group">
+                        <input type="text" id="contributorDisplay" readonly 
+                            class="bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-transparent text-gray-800 text-sm rounded-xl focus:ring-2 focus:ring-blue-300 focus:border-blue-300 block w-full p-3 cursor-pointer transition-all duration-300 ease-in-out group-hover:shadow-lg group-hover:scale-[1.02]"
+                            placeholder="🤝 Select Team Contributors" onclick="openContributorModal()">
+                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                            <svg class="w-5 h-5 text-blue-500 transition-transform group-hover:rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                        </div>
+                        <input type="hidden" name="contributor[]" id="contributorInput" multiple>
+                    </div>
+                </div>
+
+                <!-- Contributors Modal -->
+                <div id="contributorModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-gradient-to-br from-blue-100 via-blue-100 to-blue-900 bg-opacity-90">
+                    <div class="bg-white rounded-2xl shadow-2xl p-8 w-[500px] max-h-[80vh] overflow-hidden relative border-4 border-blue-200">
+                        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 to-blue-900"></div>
+                        
+                        <div class="flex justify-between items-center mb-6">
+                            <div>
+                                <h2 class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-blue-900">
+                                    🤝 Team Contributors
+                                </h2>
+                                <p class="text-sm text-gray-500">Select team members for this task</p>
+                            </div>
+                            <button type="button" onclick="closeContributorModal()" 
+                                class="text-gray-500 hover:text-blue-500 transition-all duration-300 transform hover:rotate-90">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div id="contributorList" class="space-y-2 max-h-[50vh] overflow-y-auto pr-2">
+                            <?php 
+                            $usersQuery = $this->conn->query("SELECT id, username FROM user")->fetchAll();
+                            foreach($usersQuery as $user): 
+                                $bgColors = ['bg-blue-100', 'bg-green-100', 'bg-red-100', 'bg-yellow-100'];
+                                $randomBg = $bgColors[array_rand($bgColors)];
+                            ?>
+                                <label class="flex items-center p-3 rounded-lg hover:bg-gradient-to-r from-blue-50 to-purple-50 cursor-pointer transition-all duration-200 group">
+                                    <input type="checkbox" name="contributor[]" value="<?= $user['id'] ?>" 
+                                        class="mr-2 contributor-checkbox" 
+                                        onchange="updateContributorDisplay()">
+                                    <div class="flex items-center w-full">
+                                        <div class="<?= $randomBg ?> rounded-full w-10 h-10 flex items-center justify-center mr-4 shadow-md">
+                                            <span class="text-lg font-bold text-gray-700">
+                                                <?= strtoupper(substr($user['username'], 0, 1)) ?>
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <div class="font-semibold text-gray-800">
+                                                <?= $user['username'] ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </label>
+                            <?php endforeach; ?>
+                        </div>
+                        
+                        <div class="mt-4 flex justify-end space-x-3">
+                            <button type="button" onclick="closeContributorModal()" 
+                                class="px-6 py-2 bg-gradient-to-r from-blue-500 to-red-600 text-white rounded-lg hover:from-blue-600 hover:to-red-700 transition-all duration-300 transform hover:scale-105">
+                                Done
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                function openContributorModal() {
+                    document.getElementById('contributorModal').classList.remove('hidden');
+                    document.getElementById('contributorModal').classList.add('flex');
+                }
+
+                function closeContributorModal() {
+                    document.getElementById('contributorModal').classList.remove('flex');
+                    document.getElementById('contributorModal').classList.add('hidden');
+                }
+
+                function updateContributorDisplay() {
+                    const checkboxes = document.querySelectorAll('.contributor-checkbox:checked');
+                    const contributorDisplay = document.getElementById('contributorDisplay');
+                    const contributorInput = document.getElementById('contributorInput');
+
+                    const selectedUsers = Array.from(checkboxes).map(cb => {
+                        const label = cb.closest('label');
+                        return label.querySelector('.font-semibold').textContent.trim();
+                    });
+                    const selectedUserIds = Array.from(checkboxes).map(cb => cb.value);
+
+                    // Update display input
+                    if (selectedUsers.length > 0) {
+                        contributorDisplay.value = selectedUsers.join(', ');
+                        contributorDisplay.classList.add('text-gray-800');
+                        contributorDisplay.classList.remove('text-gray-500');
+                    } else {
+                        contributorDisplay.value = '';
+                        contributorDisplay.placeholder = '🤝 Select Team Contributors';
+                        contributorDisplay.classList.remove('text-gray-800');
+                        contributorDisplay.classList.add('text-gray-500');
+                    }
+
+                    // Update hidden input with user IDs
+                    contributorInput.value = selectedUserIds.join(',');
+                }
+
+                function clearContributors() {
+                    const checkboxes = document.querySelectorAll('.contributor-checkbox:checked');
+                    checkboxes.forEach(cb => cb.checked = false);
+                    updateContributorDisplay();
+                }
+                </script>
+
                 <div class="col-span-2">
 
                     <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Description</label>
-                    <textarea id="description" name="taskdesc" rows="4"
+                    <textarea id="description" rows="4"
                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Write the description here..."></textarea>
                     <div class="hidden descriptionError text-red-600 text-xs p-2"></div>
@@ -285,6 +402,65 @@
             </div>
 
         </form>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contributorSelect = document.getElementById('contributorSelect');
+            const contributorDropdown = document.getElementById('contributorDropdown');
+            const contributorPlaceholder = document.getElementById('contributorPlaceholder');
+            const contributorBadges = document.getElementById('contributorBadges');
+            const contributorCheckboxes = document.querySelectorAll('.contributor-checkbox');
+
+            // Toggle dropdown
+            contributorSelect.addEventListener('click', function() {
+                contributorDropdown.classList.toggle('hidden');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!contributorSelect.contains(event.target) && !contributorDropdown.contains(event.target)) {
+                    contributorDropdown.classList.add('hidden');
+                }
+            });
+
+            // Prevent dropdown from closing when clicking inside
+            contributorDropdown.addEventListener('click', function(event) {
+                event.stopPropagation();
+            });
+
+            // Handle checkbox changes
+            contributorCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateContributors);
+            });
+
+            function updateContributors() {
+                // Clear existing badges
+                contributorBadges.innerHTML = '';
+
+                // Track selected contributors
+                const selectedContributors = [];
+
+                contributorCheckboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        // Create badge
+                        const badge = document.createElement('span');
+                        badge.className = 'bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300';
+                        badge.textContent = checkbox.nextSibling.textContent;
+                        contributorBadges.appendChild(badge);
+
+                        // Add to selected contributors
+                        selectedContributors.push(checkbox.value);
+                    }
+                });
+
+                // Update placeholder
+                if (selectedContributors.length > 0) {
+                    contributorPlaceholder.classList.add('hidden');
+                } else {
+                    contributorPlaceholder.classList.remove('hidden');
+                }
+            }
+        });
+        </script>
     </div>
     <!-- modal end -->
     <!-- update task -->
