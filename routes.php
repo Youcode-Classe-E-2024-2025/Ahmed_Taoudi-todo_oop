@@ -20,7 +20,7 @@ $router->post('/signup','controllers/user/UserController.php','UserController');
 
 //  UPDATE
 
-// $router->update('/task','controllers/task/taskController.php','taskController');
+$router->update('/task','controllers/task/taskController.php','taskController');
 
 
 //  DELETE

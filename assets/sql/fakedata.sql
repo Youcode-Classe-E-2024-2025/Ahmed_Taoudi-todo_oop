@@ -19,16 +19,16 @@ insert into user (username, useremail, userpassword) values
 
 -- Insert Tasks
 insert into task (taskname, taskdesc, taskstatus, taskstart, taskfin , taskpriority ) values
-('Fix login bug', 'Fix the issue where users cannot log in', 'TODO', '2024-12-20 10:00:00', NULL , 'high'),
-('Add user registration form', 'Implement a registration form for new users', 'DOING', '2024-12-15 09:00:00', NULL , 'high'),
+('Fix login bug', 'Fix the issue where users cannot log in', 'TODO', '2024-12-20 10:00:00', '2024-12-05 16:00:00' , 'high'),
+('Add user registration form', 'Implement a registration form for new users', 'DOING', '2024-12-15 09:00:00', '2024-12-05 16:00:00' , 'high'),
 ('Update homepage design', 'Improve the design of the homepage', 'DONE', '2024-12-01 08:00:00', '2024-12-05 16:00:00' , 'low'),
-('Create search functionality', 'Add search bar functionality for the website', 'TODO', '2024-12-18 11:30:00', NULL , 'low'),
-('Fix CSS bugs', 'Fix layout issues on mobile', 'DOING', '2024-12-22 14:00:00', NULL , 'high'),
-('Implement dark mode', 'Add dark mode feature for the site', 'TODO', '2024-12-25 09:00:00', NULL , 'high'),
-('Optimize performance', 'Improve the performance of the website', 'DOING', '2024-12-21 13:00:00', NULL , 'high'),
-('Add profile page', 'Create a user profile page for logged-in users', 'TODO', '2024-12-26 15:30:00', NULL , 'medium'),
+('Create search functionality', 'Add search bar functionality for the website', 'TODO', '2024-12-18 11:30:00', '2024-12-05 16:00:00' , 'low'),
+('Fix CSS bugs', 'Fix layout issues on mobile', 'DOING', '2024-12-22 14:00:00', '2024-12-05 16:00:00' , 'high'),
+('Implement dark mode', 'Add dark mode feature for the site', 'TODO', '2024-12-25 09:00:00', '2024-12-05 16:00:00' , 'high'),
+('Optimize performance', 'Improve the performance of the website', 'DOING', '2024-12-21 13:00:00', '2024-12-05 16:00:00' , 'high'),
+('Add profile page', 'Create a user profile page for logged-in users', 'TODO', '2024-12-26 15:30:00', '2024-12-05 16:00:00' , 'medium'),
 ('Refactor homepage JS', 'Refactor the homepage JavaScript for better performance', 'DONE', '2024-12-01 10:00:00', '2024-12-02 18:00:00' , 'high'),
-('Add payment gateway', 'Integrate a payment gateway for online payments', 'DOING', '2024-12-22 09:00:00', NULL , 'medium');
+('Add payment gateway', 'Integrate a payment gateway for online payments', 'DOING', '2024-12-22 09:00:00', '2024-12-05 16:00:00' , 'medium');
 
 
 

@@ -21,12 +21,50 @@ addTask.addEventListener('click', () => {
     
 });
 
+window.openUpdateModel = function(event){
+    console.log(event.target);
+    console.log(event.target.dataset.id);
+    const id = event.target.dataset.id ;
+   const modalForm_update = document.getElementById('modalForm_update')
+    modalForm_update.reset();
+    updateModal.classList.remove('hidden');
+    updateModal.classList.add('flex');
+    container.classList.add('blur');
+    fetch(`/req.php?id=${id}`).then(response => response.json())
+    .then(data => {
+
+        // console.log('rrrr',data);
+        // console.log(data);
+        const task = data;
+        // const form = document.getElementById('form-edit-task');
+        // console.log('eererr',modalForm_update);
+        console.log(modalForm_update['taskname_up'],'fffffff');
+        modalForm_update['id'].value =task['id'] ;
+        modalForm_update['taskname_up'].value = task['taskname'];
+        modalForm_update['taskpriority_up'].value = task['taskpriority'];
+        modalForm_update['description_up'].value = task['taskdesc'];
+        modalForm_update['taskfin_up'].value = task['taskfin'];
+        modalForm_update['taskstatus_up'].value = task['taskstatus'];
+        // console.log(modalForm_update);
+        // document.getElementById('edit-task-model')?.classList.remove('hidden');
+    });
+
+}
+
 const cancel_add = document.getElementById('cancel_btn');
 cancel_add.addEventListener('click', () => {
     modal.classList.add('hidden');
     modal.classList.remove('flex');
     container.classList.remove('blur');
     clearContributors();
+
+});
+const cancel_update = document.getElementById('cancel_btn_update');
+cancel_update.addEventListener('click', () => {
+    updateModal.classList.add('hidden');
+    updateModal.classList.remove('flex');
+    container.classList.remove('blur');
+   
 
 });
 

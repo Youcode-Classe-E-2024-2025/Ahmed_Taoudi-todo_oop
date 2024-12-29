@@ -74,6 +74,19 @@ class TaskController
          if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
             die("CSRF token validation failed. Possible CSRF attack.");
         }
+        // dd($_POST);
+        $id=Validator::XSS($_POST['id']); 
+        $name=Validator::XSS($_POST['taskname_up']);
+        $desc=Validator::XSS($_POST['description_up']);
+        $status=Validator::XSS($_POST['taskstatus_up']);
+        $priority=Validator::XSS($_POST['taskpriority_up']);
+        $fin=Validator::XSS($_POST['taskfin_up']);
+        // dd($fin);
+        $task = new Task($name,$desc,$status,$priority,'',$fin);
+        Task::updateTask($id, $task, $this->conn);
+        // die();
+        header('Location: /');
+
     }
 
     // Destroy (delete) a task

@@ -109,6 +109,7 @@
                         <div class="app_footer">
                             <p id="date"><?=$task['taskfin']?></p>
                             <span class="del_edi">
+                                <button data-id="<?=$task['id']?>" type="button" onclick="openUpdateModel(event)">edit</button>
                             <form action="/task" method="POST">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="id" value="<?= $task['id'] ?>">
@@ -116,8 +117,6 @@
                                    <button type="submit">
                                    <i  class="fa-solid fa-trash" style="color: #000000;"></i>
                                    </button>
-
-                                   
                                 </form>
                             </span>
                         </div>
@@ -146,6 +145,7 @@
                         <div class="app_footer">
                             <p id="date"><?=$task['taskfin']?></p>
                             <span class="del_edi">
+                            <button data-id="<?=$task['id']?>" type="button" onclick="openUpdateModel(event)">edit</button>
                             <form action="/task" method="POST">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="id" value="<?= $task['id'] ?>">
@@ -183,6 +183,7 @@
                         <div class="app_footer">
                             <p id="date"><?=$task['taskfin']?></p>
                             <span class="del_edi">
+                            <button data-id="<?=$task['id']?>" type="button" onclick="openUpdateModel(event)">edit</button>
                                 <form action="/task" method="POST">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <input type="hidden" name="id" value="<?= $task['id'] ?>">
@@ -474,45 +475,82 @@
     <!-- modal end -->
     <!-- update task -->
     <div class="task-modal hidden absolute left-0 top-0 items-center justify-center w-full h-full">
-        <form id="modalForm_update" class="conf-modal w-96 bg-white p-4 rounded-sm md:p-5">
-            <div class="grid gap-4 mb-4 grid-cols-2">
+        <form id="modalForm_update" method="POST" action="/task" class="conf-modal w-96 bg-white p-4 rounded-sm md:p-5">
+        <div class="grid gap-4 mb-4 grid-cols-2">
                 <div class="col-span-2">
-                    <h1 class="text-center font-bold text-blue-900">Update Task</h1>
-
+                    <h1 class="text-center font-bold text-blue-900">Upadate Task</h1>
+                    <!-- CSRF -->
+                    <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>"> 
+                    <input type="hidden" name="id">
+                    <input type="hidden" name="_method" value="UPDATE">
+                    <label for="taskname_up"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+                    <input type="text" name="taskname_up" id="taskname_up"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Type task Title" >
+                        <div class="hidden nameError text-red-600 text-xs p-2"></div>
                 </div>
                 <div class="col-span-2 sm:col-span-1">
-                    <label for="priority_update"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">priority</label>
-                    <select id="priority_update"
+                    <label for="taskstatus_up"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
+                    <select id="taskstatus_up" name="taskstatus_up"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <option selected="">priority</option>
-                        <option value="P1">P1</option>
-                        <option value="P2">P2</option>
-                        <option value="P3">P3</option>
+                        <option value="TODO">Todo</option>
+                        <option value="DOING">In Progress</option>
+                        <option value="DONE">Done</option>
                     </select>
                 </div>
-
-                <div class="col-span-1">
-                    <label for="due_date_update" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">due
-                        date</label>
-                    <input type="date" name="date" id="due_date_update"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Type task Title" required="">
+               
+                <div class="col-span-2 sm:col-span-1">
+                    <label for="taskpriority_up"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">priority</label>
+                    <select id="taskpriority_up" name="taskpriority_up"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                        <option value="high">High</option>
+                    </select>
                 </div>
+                <div class="col-span-2 sm:col-span-1">
+                    <label for="tasktype_up"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">category</label>
+                    <select id="tasktype_up" name="tasktype_up"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <option value="basic">basic</option>
+                        <option value="bug">Bug</option>
+                        <option value="feature">Feature</option>
+                    </select>
+                </div>
+                <div class="col-span-1">
+                    <label for="taskfin_up" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">due
+                        date</label>
+                    <input type="datetime-local" name="taskfin_up" id="taskfin_up"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Type task Title" >
+                        <div class="hidden dateError text-red-600 text-xs p-2"></div>
+                </div>
+                 
+
+                
+
                 <div class="col-span-2">
 
-                    <label for="description_update" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    <label for="description_up" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Description</label>
-                    <textarea id="description_update" rows="4"
+                    <textarea id="description_up" name="description_up" rows="4"
                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Write the description here..."></textarea>
-
+                    <div class="hidden descriptionError text-red-600 text-xs p-2"></div>
                 </div>
 
             </div>
+            <div>
+                <p class="hidden messageError text-red-600 text-xs p-2"></p>
+            </div>
+          
             <div class="footer_drop flex justify-between">
                 <!-- update_btn -->
-                <button type="button"
+                <button type="submit"
                     id="submit_btn_update"
                     class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
