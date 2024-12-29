@@ -65,9 +65,9 @@
                           <div class="bg-gray-100 p-4 rounded-lg">
                               <div class="flex flex-wrap gap-4">
                                   <?php foreach($users as $user) :?>
-                                  <div class="flex items-center bg-white p-2 rounded-lg shadow-sm justify-between w-1/4">
+                                  <div class="flex items-center bg-white p-2 rounded-lg shadow-sm justify-between w-fit">
                                       <div class="flex items-center">
-                                          <!-- <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Smith" class="w-10 h-10 rounded-full mr-3"> -->
+                                          <img src="https://ui-avatars.com/api/?name=<?= $user['username'] ?>&background=0D8ABC&color=fff"  class="w-10 h-10 rounded-full mr-3">
                                           <div>
                                               <p class="font-semibold text-gray-800"><?= $user['username'] ?></p>
                                               <p class="text-sm text-gray-500"><?= $user['useremail'] ?></p>
